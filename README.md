@@ -52,6 +52,14 @@ Data menunjukkan bahwa minat membaca masyarakat Indonesia masih rendah. Banyak f
     - Dapat menghapus buku
     - Dapat menyetujui request buku
 
+## Alur pengintegrasian dengan *web service* untuk terhubung dengan aplikasi web yang sudah dibuat saat Proyek Tengah Semester
+
+1. Menambahkan fungsi-fungsi pada proyek tengah semester untuk dapat berinteraksi dengan data JSON.
+2. Menambahkan *dependency* `provider`, `pbp_django_auth`, dan `http` ke proyek. *Dependency* tersebut akan digunakan untuk melakukan `http response` dan `http request` ke proyek tengah semester.
+3. Membuat model-model yang dibutuhkan untuk mengolah data JSON.
+4. Membuat fungsi untuk *fetch* data dari web kemudian mengonversinya menjadi model yang telah dibuat sebelumnya.
+5. Menampilkan data yang telah dikonversi ke aplikasi menggunakan widget `FutureBuilder`.
+
 ## Berita Acara
 
 https://docs.google.com/spreadsheets/d/1vpeCIh12ZSSyEI3GTAyt5BcemeOI_Aaqu5N2J4SVORQ/edit?usp=sharing
