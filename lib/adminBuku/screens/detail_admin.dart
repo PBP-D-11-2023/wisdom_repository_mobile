@@ -46,7 +46,7 @@ class DetailBuku extends StatelessWidget {
                 if (response['status'] == 'success') {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(const SnackBar(
-                    content: Text("Item baru berhasil disimpan!"),
+                    content: Text("Buku berhasil dihapus!"),
                   ));
                   Navigator.pushReplacement(
                     context,

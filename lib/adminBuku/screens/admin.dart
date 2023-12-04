@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/rating.dart';
+import 'package:wisdom_repository_mobile/adminBuku/screens/buku_form.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -60,7 +61,6 @@ class _BukuPageState extends State<AdminPage> {
     response =
         await http.post(Uri.parse('http://127.0.0.1:8000/main/get_rating/'));
 
- 
     List<Rating> rating = [];
     var data = jsonDecode(response.body);
     for (var i in data) {
@@ -74,7 +74,6 @@ class _BukuPageState extends State<AdminPage> {
       }
     }
   }
-
 
   void _filterBuku(String query) {
     List<Buku> filteredList = _bukuSemua
@@ -119,6 +118,15 @@ class _BukuPageState extends State<AdminPage> {
     setState(() {
       _filteredBuku = _bukuSemua;
     });
+  }
+
+  void tambahBuku() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => BukuFormPage(),
+      ),
+    );
   }
 
   @override
@@ -179,7 +187,7 @@ class _BukuPageState extends State<AdminPage> {
             ],
           ),
           Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
                 onPressed: () {
@@ -236,6 +244,11 @@ class _BukuPageState extends State<AdminPage> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: tambahBuku,
+        tooltip: 'Tambah Buku',
+        child: const Icon(Icons.add),
       ),
     );
   }
