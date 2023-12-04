@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/admin.dart';
+import 'package:wisdom_repository_mobile/adminBuku/screens/edit_form.dart';
 
 class DetailBuku extends StatelessWidget {
   final Buku buku;
@@ -31,7 +32,14 @@ class DetailBuku extends StatelessWidget {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // pinjam
+                Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditFormPage(
+                                  buku: buku,
+                                ),
+                              ),
+                            );
               },
               child: Text('Edit'),
             ),
