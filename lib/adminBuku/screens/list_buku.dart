@@ -35,7 +35,7 @@ class _BukuPageState extends State<BukuPage> {
     if (!_booksFetched) {
       final request = context.watch<CookieRequest>();
       final response = await request.get(
-        'http://127.0.0.1:8000/main/get_books_json/',
+        'https://wisdomrepository--wahyuridho5.repl.co/main/get_books_json/',
       );
 
       List<Buku> buku = [];
@@ -57,7 +57,7 @@ class _BukuPageState extends State<BukuPage> {
   void fetchRating() async {
     //use http get
     var response =
-        await http.post(Uri.parse('http://127.0.0.1:8000/main/get_rating/'));
+        await http.post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/get_rating/'));
 
     List<Rating> rating = [];
     var data = jsonDecode(response.body);
@@ -97,13 +97,13 @@ class _BukuPageState extends State<BukuPage> {
     var response;
     if (nama == "judul") {
       response = await http
-          .post(Uri.parse('http://127.0.0.1:8000/main/sortjson/judul'));
+          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/judul'));
     } else if (nama == "tahun") {
       response = await http
-          .post(Uri.parse('http://127.0.0.1:8000/main/sortjson/tahun'));
+          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/tahun'));
     } else if (nama == "rating") {
       response = await http
-          .post(Uri.parse('http://127.0.0.1:8000/main/sortjson/rating'));
+          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/rating'));
     }
 
     List<Buku> buku = [];
@@ -132,6 +132,7 @@ class _BukuPageState extends State<BukuPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Daftar Buku"),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [

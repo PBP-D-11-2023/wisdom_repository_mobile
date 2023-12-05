@@ -35,7 +35,7 @@ class DetailRequest extends StatelessWidget {
               onPressed: () async {
                 // Kirim ke Django dan tunggu respons
                 final response = await request.postJson(
-                  "http://127.0.0.1:8000/admin-buku/acc-request-book-flutter/",
+                  "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/acc-request-book-flutter/",
                   jsonEncode(<String, String>{
                     'bookID': buku.pk.toString(),
                     'isbn': buku.fields.isbn,
@@ -70,7 +70,7 @@ class DetailRequest extends StatelessWidget {
             ElevatedButton(
               onPressed: () async {
                 final response = await request.postJson(
-                    "http://127.0.0.1:8000/admin-buku/delete-request-book-flutter/",
+                    "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/delete-request-book-flutter/",
                     jsonEncode(<String, String>{
                       'bookID': buku.pk.toString(),
                     }));

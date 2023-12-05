@@ -35,7 +35,7 @@ class _RequestPageState extends State<RequestPage> {
     if (!_booksFetched) {
       final request = context.watch<CookieRequest>();
       final response = await request.get(
-        'http://127.0.0.1:8000/admin-buku/get-request-books/',
+        'https://wisdomrepository--wahyuridho5.repl.co/admin-buku/get-request-books/',
       );
 
       List<RequestBuku> buku = [];
@@ -57,7 +57,7 @@ class _RequestPageState extends State<RequestPage> {
   void fetchRating() async {
     //use http get
     var response =
-        await http.post(Uri.parse('http://127.0.0.1:8000/main/get_rating/'));
+        await http.post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/get_rating/'));
 
     List<Rating> rating = [];
     var data = jsonDecode(response.body);
@@ -107,6 +107,7 @@ class _RequestPageState extends State<RequestPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Daftar Request Buku"),
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [

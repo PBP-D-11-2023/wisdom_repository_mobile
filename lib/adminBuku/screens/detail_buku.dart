@@ -49,7 +49,7 @@ class DetailBuku extends StatelessWidget {
             ElevatedButton(
               onPressed: () async {
                 final response = await request.postJson(
-                            "http://127.0.0.1:8000/admin-buku/delete-book-flutter/",
+                            "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/delete-book-flutter/",
                             jsonEncode(<String, String>{
                               'bookID': buku.pk.toString(),
                             }));

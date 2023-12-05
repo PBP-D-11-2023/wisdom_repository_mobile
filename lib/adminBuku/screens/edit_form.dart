@@ -251,7 +251,7 @@ class _BukuFormPageState extends State<EditFormPage> {
                       if (_formKey.currentState!.validate()) {
                         // Kirim ke Django dan tunggu respons
                         final response = await request.postJson(
-                          "http://127.0.0.1:8000/admin-buku/edit-book-flutter/",
+                          "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/edit-book-flutter/",
                           jsonEncode(<String, String>{
                             'bookID': widget.buku.pk.toString(),
                             'isbn': _isbnController.text,
