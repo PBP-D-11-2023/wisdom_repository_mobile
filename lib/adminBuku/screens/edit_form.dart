@@ -197,6 +197,9 @@ class _BukuFormPageState extends State<EditFormPage> {
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
                   controller: _deskripsiController,
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,
+                  maxLines: 5,
                   decoration: InputDecoration(
                     hintText: "Deskripsi",
                     labelText: "Deskripsi",
