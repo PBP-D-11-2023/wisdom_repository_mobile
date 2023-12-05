@@ -40,7 +40,7 @@ class Fields {
     String kategori;
     String gambar;
     String deskripsi;
-    double rating;
+    num rating;
 
     Fields({
         required this.isbn,

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +31,7 @@ class DetailBuku extends StatelessWidget {
             Text(buku.fields.kategori),
             Text(buku.fields.tahun.toString()),
             Text(buku.fields.rating.toString()),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
@@ -41,13 +43,13 @@ class DetailBuku extends StatelessWidget {
                               ),
                             );
               },
-              child: Text('Edit'),
+              child: const Text('Edit'),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () async {
                 final response = await request.postJson(
-                            "http://127.0.0.1:8000/admin-buku/delete-book-flutter/",
+                            "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/delete-book-flutter/",
                             jsonEncode(<String, String>{
                               'bookID': buku.pk.toString(),
                             }));
@@ -59,7 +61,7 @@ class DetailBuku extends StatelessWidget {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => AdminPage()),
+                        builder: (context) => const AdminPage()),
                   );
                 } else {
                   ScaffoldMessenger.of(context)
@@ -69,9 +71,9 @@ class DetailBuku extends StatelessWidget {
                   ));
                 }
               },
-              child: Text('Hapus'),
+              child: const Text('Hapus'),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
           ],
         ),
       ),

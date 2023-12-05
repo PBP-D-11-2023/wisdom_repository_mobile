@@ -28,6 +28,7 @@ class _BukuFormPageState extends State<BukuFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Form Tambah Buku'),
+        automaticallyImplyLeading: false,
       ),
       body: Form(
         key: _formKey,
@@ -185,6 +186,9 @@ class _BukuFormPageState extends State<BukuFormPage> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
+                  keyboardType: TextInputType.multiline,
+                  minLines: 1,
+                  maxLines: 5,
                   decoration: InputDecoration(
                     hintText: "Deskripsi",
                     labelText: "Deskripsi",
@@ -246,7 +250,7 @@ class _BukuFormPageState extends State<BukuFormPage> {
                       if (_formKey.currentState!.validate()) {
                         // Kirim ke Django dan tunggu respons
                         final response = await request.postJson(
-                            "http://127.0.0.1:8000/admin-buku/create-book-flutter/",
+                            "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/create-book-flutter/",
                             jsonEncode(<String, String>{
                               'isbn': _isbn,
                               'judul': _judul,
