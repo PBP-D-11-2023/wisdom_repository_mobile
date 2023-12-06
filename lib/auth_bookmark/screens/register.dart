@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:wisdom_repository_mobile/main.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/login.dart';
 
 void main() {
     runApp(const RegisterApp());
@@ -15,7 +16,7 @@ class RegisterApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Login',
+      title: 'Register',
       theme: ThemeData(
       primarySwatch: Colors.blue,
       ),
@@ -81,7 +82,7 @@ class _RegisterPageState extends State<RegisterPage> {
                                     String uname = response['username'];
                                     Navigator.pushReplacement(
                                         context,
-                                        MaterialPageRoute(builder: (context) => MyHomePage(title: 'berhasil register',)),
+                                        MaterialPageRoute(builder: (context) => const LoginPage()),
                                     );
                                     ScaffoldMessenger.of(context)
                                         ..hideCurrentSnackBar()

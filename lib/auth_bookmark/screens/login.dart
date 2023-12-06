@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:wisdom_repository_mobile/adminBuku/screens/admin.dart';
 import 'package:wisdom_repository_mobile/main.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
 
 void main() {
     runApp(const LoginApp());
@@ -66,11 +69,7 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () async {
                                 String username = _usernameController.text;
                                 String password = _passwordController.text;
-
-                                // Cek kredensial
-                                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                                // Untuk menyambungkan Android emulator dengan Django pada localhost,
-                                // gunakan URL http://10.0.2.2/
+                    
                                 final response = await request.login("http://localhost:8000/login-flutter/", {
                                 'username': username,
                                 'password': password,
@@ -79,10 +78,19 @@ class _LoginPageState extends State<LoginPage> {
                                 if (request.loggedIn) {
                                     String message = response['message'];
                                     String uname = response['username'];
-                                    Navigator.pushReplacement(
+                                    String member = response['member'];
+                                    String tipe = response['tipe'];
+                                    if (tipe == 'admin'){
+                                      Navigator.pushReplacement(
                                         context,
-                                        MaterialPageRoute(builder: (context) => MyHomePage(title: 'berhasil login',)),
+                                      MaterialPageRoute(builder: (context) => const AdminPage()),
                                     );
+                                    } else {
+                                      Navigator.pushReplacement(
+                                        context,
+                                      MaterialPageRoute(builder: (context) => const BookmarkPage()),
+                                      );
+                                    }
                                     ScaffoldMessenger.of(context)
                                         ..hideCurrentSnackBar()
                                         ..showSnackBar(
