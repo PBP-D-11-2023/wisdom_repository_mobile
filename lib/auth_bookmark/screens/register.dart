@@ -1,117 +1,169 @@
-// ignore_for_file: use_build_context_synchronously
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:wisdom_repository_mobile/main.dart';
+import 'package:http/http.dart' as http;
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/login.dart';
 
 void main() {
-    runApp(const RegisterApp());
+  runApp(const RegisterApp());
 }
 
 class RegisterApp extends StatelessWidget {
-  const RegisterApp({super.key});
+  const RegisterApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Register',
       theme: ThemeData(
-      primarySwatch: Colors.blue,
+        primarySwatch: Colors.blue,
       ),
-      home: const RegisterApp(),
+      home: const RegisterPage(),
     );
   }
 }
 
 class RegisterPage extends StatefulWidget {
-    const RegisterPage({super.key});
+  const RegisterPage({super.key});
 
-    @override
-    _RegisterPageState createState() => _RegisterPageState();
+  @override
+  _RegistrationPageState createState() => _RegistrationPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
-    final TextEditingController _usernameController = TextEditingController();
-    final TextEditingController _passwordController = TextEditingController();
+class _RegistrationPageState extends State<RegisterPage> {
+  String? selectedMember; // Tambahkan variabel untuk menyimpan pilihan radio button
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
-    @override
-    Widget build(BuildContext context) {
-        final request = context.watch<CookieRequest>();
-        return Scaffold(
-            appBar: AppBar(
-                title: const Text('Register'),
-            ),
-            body: Container(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                        TextField(
-                            controller: _usernameController,
-                            decoration: const InputDecoration(
-                                labelText: 'Username',
-                            ),
-                        ),
-                        const SizedBox(height: 12.0),
-                        TextField(
-                            controller: _passwordController,
-                            decoration: const InputDecoration(
-                                labelText: 'Password',
-                            ),
-                            obscureText: true,
-                        ),
-                        const SizedBox(height: 24.0),
-                        ElevatedButton(
-                            onPressed: () async {
-                                String username = _usernameController.text;
-                                String password = _passwordController.text;
+  Future<void> _registerUser() async {
+    final url = Uri.parse("http://localhost:8000/register-flutter/");
+    final response = await http.post(
+      url,
+      body: {
+        'username': _usernameController.text,
+        'member': selectedMember ?? '',
+        'password1':
+            _passwordController.text, // Modify to match Django form fields
+        'password2':
+            _passwordController.text, // Modify to match Django form fields
+      },
+    );
 
-                                // Cek kredensial
-                                // TODO: Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-                                // Untuk menyambungkan Android emulator dengan Django pada localhost,
-                                // gunakan URL http://10.0.2.2/
-                                final response = await request.login("http://localhost:8000/register-flutter/", {
-                                'username': username,
-                                'password': password,
-                                });
-                    
-                                if (request.loggedIn) {
-                                    String message = response['message'];
-                                    String uname = response['username'];
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(builder: (context) => const LoginPage()),
-                                    );
-                                    ScaffoldMessenger.of(context)
-                                        ..hideCurrentSnackBar()
-                                        ..showSnackBar(
-                                            SnackBar(content: Text("$message Selamat datang, $uname.")));
-                                    } else {
-                                    showDialog(
-                                        context: context,
-                                        builder: (context) => AlertDialog(
-                                            title: const Text('Register Gagal'),
-                                            content:
-                                                Text(response['message']),
-                                            actions: [
-                                                TextButton(
-                                                    child: const Text('OK'),
-                                                    onPressed: () {
-                                                        Navigator.pop(context);
-                                                    },
-                                                ),
-                                            ],
-                                        ),
-                                    );
-                                }
-                            },
-                            child: const Text('Register'),
-                        ),
-                    ],
-                ),
-            ),
-        );
+    if (response.statusCode == 200) {
+      // Handle successful registration
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Success'),
+            content: const Text('Registrasi berhasil!'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => const LoginPage(),
+                  ));
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Handle registration errors
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text('Registrasi gagal, silakan perbaiki data yang dimasukkan.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
     }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Registration Form'),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                labelText: 'Username',
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+              ),
+              obscureText: true,
+            ),
+            const SizedBox(height: 24.0),
+             RadioListTile<String>(
+              title: const Text('Regular'),
+              value: 'regular', // sesuaikan dengan yang ada di Django
+              groupValue: selectedMember,
+              onChanged: (value) {
+                setState(() {
+                  selectedMember = value;
+                });
+              },
+            ),
+            RadioListTile<String>(
+              title: const Text('Premium'),
+              value: 'premium', // sesuaikan dengan yang ada di Django
+              groupValue: selectedMember,
+              onChanged: (value) {
+                setState(() {
+                  selectedMember = value;
+                });
+              },
+            ),
+            const SizedBox(height: 24.0),
+            TextButton(
+              onPressed: () async {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Text(
+                "Already have an account? Login Now",
+                style: TextStyle(
+                  color: Colors.blue, // Atur warna teks agar terlihat sebagai tautan
+                ),
+              ),
+            ),
+            const SizedBox(height: 24.0),
+            ElevatedButton(
+              onPressed: () async {
+                await _registerUser();
+              },
+              child: const Text('Register'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

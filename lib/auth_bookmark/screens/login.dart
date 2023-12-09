@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/admin.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/main.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
@@ -63,6 +64,21 @@ class _LoginPageState extends State<LoginPage> {
                                 labelText: 'Password',
                             ),
                             obscureText: true,
+                        ),
+                        const SizedBox(height: 24.0),
+                        TextButton(
+                          onPressed: () async {
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(builder: (context) => const RegisterPage()),
+                            );
+                          },
+                          child: const Text(
+                            "Don't have an account yet? Register Now",
+                            style: TextStyle(
+                              color: Colors.blue, // Atur warna teks agar terlihat sebagai tautan
+                            ),
+                          ),
                         ),
                         const SizedBox(height: 24.0),
                         ElevatedButton(

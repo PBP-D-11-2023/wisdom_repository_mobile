@@ -18,7 +18,8 @@ Future<List<Bookmark>> fetchProduct() async {
         'http://localhost:8000/json/');
     var response = await http.get(
         url,
-        headers: {"Content-Type": "application/json"},
+        headers: {"Content-Type": "application/json",
+        },
     );
 
     // melakukan decode response menjadi bentuk json
