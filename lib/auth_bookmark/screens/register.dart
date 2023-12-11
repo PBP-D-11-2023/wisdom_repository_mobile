@@ -36,7 +36,7 @@ class _RegistrationPageState extends State<RegisterPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _registerUser() async {
-    final url = Uri.parse("http://localhost:8000/register-flutter/");
+    final url = Uri.parse("https://wisdomrepository--wahyuridho5.repl.co/register-flutter/");
     final response = await http.post(
       url,
       body: {

@@ -12,31 +12,28 @@ class BookmarkPage extends StatefulWidget {
 }
 
 class _BookmarkPageState extends State<BookmarkPage> {
-Future<List<Bookmark>> fetchProduct() async {
-    // Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-    var url = Uri.parse(
-        'http://localhost:8000/json/');
-    var response = await http.get(
-        url,
-        headers: {"Content-Type": "application/json",
-        },
-    );
-
-    // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-    // melakukan konversi data json menjadi object Product
-    List<Bookmark> list_bookmark = [];
-    for (var d in data) {
-        if (d != null) {
-            list_bookmark.add(Bookmark.fromJson(d));
-        }
-    }
-    return list_bookmark;
-}
-
 @override
 Widget build(BuildContext context) {
+  Future<List<Bookmark>> fetchProduct() async {
+      // Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
+      var url = Uri.parse(
+          'https://wisdomrepository--wahyuridho5.repl.co/get_bookmark_user/');
+      var response = await http.get(
+          url,
+      );
+
+      // melakukan decode response menjadi bentuk json
+      var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+      // melakukan konversi data json menjadi object Product
+      List<Bookmark> list_bookmark = [];
+      for (var d in data) {
+          if (d != null) {
+              list_bookmark.add(Bookmark.fromJson(d));
+          }
+      }
+      return list_bookmark;
+  }
     return Scaffold(
         appBar: AppBar(
         title: const Text('Bookmark'),

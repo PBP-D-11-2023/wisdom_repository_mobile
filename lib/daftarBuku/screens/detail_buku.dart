@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
+import 'package:http/http.dart' as http;
 
 class DetailBuku extends StatelessWidget {
   final Buku buku;
@@ -37,12 +40,12 @@ class DetailBuku extends StatelessWidget {
               },
               child: Text('Lihat Review'),
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
                 // bookmark
               },
-              child: Text('Bookmark'),
+              child: const Text('Bookmark'),
             ),
           ],
         ),
