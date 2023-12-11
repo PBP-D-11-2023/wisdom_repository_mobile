@@ -1,0 +1,169 @@
+// ignore_for_file: use_build_context_synchronously, library_private_types_in_public_api
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/login.dart';
+
+void main() {
+  runApp(const RegisterApp());
+}
+
+class RegisterApp extends StatelessWidget {
+  const RegisterApp({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Register',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const RegisterPage(),
+    );
+  }
+}
+
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({super.key});
+
+  @override
+  _RegistrationPageState createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegisterPage> {
+  String? selectedMember; // Tambahkan variabel untuk menyimpan pilihan radio button
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  Future<void> _registerUser() async {
+    final url = Uri.parse("https://wisdomrepository--wahyuridho5.repl.co/register-flutter/");
+    final response = await http.post(
+      url,
+      body: {
+        'username': _usernameController.text,
+        'member': selectedMember ?? '',
+        'password1':
+            _passwordController.text, // Modify to match Django form fields
+        'password2':
+            _passwordController.text, // Modify to match Django form fields
+      },
+    );
+
+    if (response.statusCode == 200) {
+      // Handle successful registration
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Success'),
+            content: const Text('Registrasi berhasil!'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (BuildContext context) => const LoginPage(),
+                  ));
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      // Handle registration errors
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: const Text('Error'),
+            content: const Text('Registrasi gagal, silakan perbaiki data yang dimasukkan.'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Registration Form'),
+      ),
+      body: Container(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                labelText: 'Username',
+              ),
+            ),
+            const SizedBox(height: 12.0),
+            TextField(
+              controller: _passwordController,
+              decoration: const InputDecoration(
+                labelText: 'Password',
+              ),
+              obscureText: true,
+            ),
+            const SizedBox(height: 24.0),
+             RadioListTile<String>(
+              title: const Text('Regular'),
+              value: 'regular', // sesuaikan dengan yang ada di Django
+              groupValue: selectedMember,
+              onChanged: (value) {
+                setState(() {
+                  selectedMember = value;
+                });
+              },
+            ),
+            RadioListTile<String>(
+              title: const Text('Premium'),
+              value: 'premium', // sesuaikan dengan yang ada di Django
+              groupValue: selectedMember,
+              onChanged: (value) {
+                setState(() {
+                  selectedMember = value;
+                });
+              },
+            ),
+            const SizedBox(height: 24.0),
+            TextButton(
+              onPressed: () async {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Text(
+                "Already have an account? Login Now",
+                style: TextStyle(
+                  color: Colors.blue, // Atur warna teks agar terlihat sebagai tautan
+                ),
+              ),
+            ),
+            const SizedBox(height: 24.0),
+            ElevatedButton(
+              onPressed: () async {
+                await _registerUser();
+              },
+              child: const Text('Register'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

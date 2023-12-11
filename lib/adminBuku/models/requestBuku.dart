@@ -1,25 +1,25 @@
 // To parse this JSON data, do
 //
-//     final buku = bukuFromJson(jsonString);
+//     final requestBuku = requestBukuFromJson(jsonString);
 
 import 'dart:convert';
 
-Buku bukuFromJson(String str) => Buku.fromJson(json.decode(str));
+List<RequestBuku> requestBukuFromJson(String str) => List<RequestBuku>.from(json.decode(str).map((x) => RequestBuku.fromJson(x)));
 
-String bukuToJson(Buku data) => json.encode(data.toJson());
+String requestBukuToJson(List<RequestBuku> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
-class Buku {
-  String model;
-  int pk;
-  Fields fields;
+class RequestBuku {
+    String model;
+    int pk;
+    Fields fields;
 
-    Buku({
+    RequestBuku({
         required this.model,
         required this.pk,
         required this.fields,
     });
 
-    factory Buku.fromJson(Map<String, dynamic> json) => Buku(
+    factory RequestBuku.fromJson(Map<String, dynamic> json) => RequestBuku(
         model: json["model"],
         pk: json["pk"],
         fields: Fields.fromJson(json["fields"]),
@@ -40,7 +40,8 @@ class Fields {
     String kategori;
     String gambar;
     String deskripsi;
-    num rating;
+    double rating;
+    int user;
 
     Fields({
         required this.isbn,
@@ -51,6 +52,7 @@ class Fields {
         required this.gambar,
         required this.deskripsi,
         required this.rating,
+        required this.user,
     });
 
     factory Fields.fromJson(Map<String, dynamic> json) => Fields(
@@ -61,7 +63,8 @@ class Fields {
         kategori: json["kategori"],
         gambar: json["gambar"],
         deskripsi: json["deskripsi"],
-        rating: json["rating"],
+        rating: json["rating"]?.toDouble(),
+        user: json["user"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -73,5 +76,6 @@ class Fields {
         "gambar": gambar,
         "deskripsi": deskripsi,
         "rating": rating,
+        "user": user,
     };
 }
