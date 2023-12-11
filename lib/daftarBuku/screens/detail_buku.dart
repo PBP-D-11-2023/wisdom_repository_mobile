@@ -4,6 +4,7 @@ import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 
 class DetailBuku extends StatelessWidget {
   final Buku buku;
+  
 
   const DetailBuku({Key? key, required this.buku}) : super(key: key);
 
@@ -41,6 +42,8 @@ class DetailBuku extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // bookmark
+      
+
               },
               child: Text('Bookmark'),
             ),
