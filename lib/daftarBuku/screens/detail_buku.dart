@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 
 class DetailBuku extends StatelessWidget {
   final Buku buku;
+  
 
   const DetailBuku({Key? key, required this.buku}) : super(key: key);
 
@@ -44,6 +45,8 @@ class DetailBuku extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // bookmark
+      
+
               },
               child: const Text('Bookmark'),
             ),
