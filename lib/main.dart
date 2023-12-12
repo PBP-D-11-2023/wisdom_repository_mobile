@@ -6,6 +6,7 @@ import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,8 +26,10 @@ class MyApp extends StatelessWidget {
                 title: 'Flutter App',
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
-                    colorScheme: ColorScheme.fromSeed(seedColor: Colors.indigo),
+                    colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF37465D)),
                     useMaterial3: true,
+                    scaffoldBackgroundColor: const Color(0xFFF5F2ED),
+                    fontFamily: GoogleFonts.inknutAntiqua().fontFamily,
                 ),
                 home: const LoginPage(),
             ),

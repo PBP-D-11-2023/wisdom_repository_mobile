@@ -18,6 +18,7 @@ class BukuPage extends StatefulWidget {
 }
 
 class _BukuPageState extends State<BukuPage> {
+  String buku = 'Buku';
   late List<Buku> _filteredBuku;
   late List<Buku> _bukuSemua;
   late List<Rating> _test;
@@ -38,7 +39,7 @@ class _BukuPageState extends State<BukuPage> {
     if (!_booksFetched) {
       final request = context.watch<CookieRequest>();
       final response = await request.get(
-        'http://127.0.0.1:8000/main/get_books_json/',
+        'https://wisdomrepository--wahyuridho5.repl.co/main/get_books_json/', 
       );
       
       List<Buku> buku = [];
@@ -61,7 +62,7 @@ class _BukuPageState extends State<BukuPage> {
     //use http get
     var response;
     response =
-        await http.post(Uri.parse('http://127.0.0.1:8000/main/get_rating/'));
+        await http.post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/get_rating/'));
 
  
     List<Rating> rating = [];
@@ -82,10 +83,33 @@ class _BukuPageState extends State<BukuPage> {
   void _filterBuku(String query) {
     List<Buku> filteredList = _bukuSemua
         .where((buku) =>
-            buku.fields.judul.toLowerCase().contains(query.toLowerCase()))
+            buku.fields.judul.toLowerCase().contains(query.toLowerCase()) ||
+            buku.fields.penulis.toLowerCase().contains(query.toLowerCase()) ||
+            buku.fields.kategori.toLowerCase().contains(query.toLowerCase()))
         .toList();
     setState(() {
       _filteredBuku = filteredList;
+    });
+  }
+
+  void filterBukuFromDjango(String query) async {
+    final body = {
+      'query': query,
+    };
+    var response;
+    response = await http.post(
+      Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/search_books_json/'),
+      body: body,
+    );
+
+    List<Buku> buku = [];
+    var data = jsonDecode(response.body);
+    for (var i in data) {
+      if (i != null) buku.add(Buku.fromJson(i));
+    }
+    fetchRating();
+    setState(() {
+      _filteredBuku = buku;
     });
   }
 
@@ -103,13 +127,13 @@ class _BukuPageState extends State<BukuPage> {
     var response;
     if (nama == "judul") {
       response = await http
-          .post(Uri.parse('http://127.0.0.1:8000/main/sortjson/judul'));
+          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/judul'));
     } else if (nama == "tahun") {
       response = await http
-          .post(Uri.parse('http://127.0.0.1:8000/main/sortjson/tahun'));
+          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/tahun'));
     } else if (nama == "rating") {
       response = await http
-          .post(Uri.parse('http://127.0.0.1:8000/main/sortjson/rating'));
+          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/rating'));
     }
 
     List<Buku> buku = [];
