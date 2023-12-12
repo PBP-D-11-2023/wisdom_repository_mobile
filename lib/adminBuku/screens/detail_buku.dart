@@ -27,6 +27,7 @@ class DetailBuku extends StatelessWidget {
                   Image.asset(
                     'assets/images/banner.png',
                     height: 250,
+                    width: double.infinity,
                     fit: BoxFit.cover,
                   ),
                   Positioned(
@@ -36,9 +37,9 @@ class DetailBuku extends StatelessWidget {
                     bottom: 0,
                     child: Center(
                         child: Container(
-                      padding: EdgeInsets.all(24),
+                      padding: const EdgeInsets.all(24),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             color: Colors.white,
@@ -49,7 +50,7 @@ class DetailBuku extends StatelessWidget {
                               child: Image.network(buku.fields.gambar),
                             ),
                           ),
-                          SizedBox(width: 16),
+                          const SizedBox(width: 16),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -57,26 +58,26 @@ class DetailBuku extends StatelessWidget {
                               children: [
                                 Text(
                                   buku.fields.judul,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                   ),
                                 ),
                                 Text(
                                   buku.fields.penulis,
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                                 Text(
                                   '${buku.fields.rating.toString()}/5',
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                                 Text(
                                   buku.fields.tahun.toString(),
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                                 Text(
                                   buku.fields.kategori,
-                                  style: TextStyle(color: Colors.white),
+                                  style: const TextStyle(color: Colors.white),
                                 ),
                               ],
                             ),
@@ -92,7 +93,7 @@ class DetailBuku extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    const Text(
                       "Details",
                       style: TextStyle(fontSize: 20),
                     ),
@@ -101,7 +102,7 @@ class DetailBuku extends StatelessWidget {
                       width: double.infinity, // Set the width to full
                       height: 400,
                       decoration: BoxDecoration(
-                        border: Border.all(color: Color(0xFF37465D), width: 2),
+                        border: Border.all(color: const Color(0xFF37465D), width: 2),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: SingleChildScrollView(
@@ -125,7 +126,7 @@ class DetailBuku extends StatelessWidget {
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(0),
                             ),
-                            backgroundColor: Color(0xFF37465D),
+                            backgroundColor: const Color(0xFF37465D),
                           ),
                           child: const Text(
                             'Back',
@@ -151,7 +152,7 @@ class DetailBuku extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(0),
                                 ),
-                                backgroundColor: Color(0xFF4DC7BF),
+                                backgroundColor: const Color(0xFF4DC7BF),
                               ),
                               child: const Text(
                                 'Edit',
@@ -160,7 +161,7 @@ class DetailBuku extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            SizedBox(width: 8),
+                            const SizedBox(width: 8),
                             ElevatedButton(
                               onPressed: () async {
                                 final response = await request.postJson(
@@ -191,7 +192,7 @@ class DetailBuku extends StatelessWidget {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(0),
                                 ),
-                                backgroundColor: Color(0xFFFC726F),
+                                backgroundColor: const Color(0xFFFC726F),
                               ),
                               child: const Text(
                                 'Delete',

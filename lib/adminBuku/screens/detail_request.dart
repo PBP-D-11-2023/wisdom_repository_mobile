@@ -25,6 +25,7 @@ class DetailRequest extends StatelessWidget {
                 children: [
                   Image.asset(
                     'assets/images/banner.png',
+                    width: double.infinity,
                     height: 250,
                     fit: BoxFit.cover,
                   ),
@@ -37,7 +38,7 @@ class DetailRequest extends StatelessWidget {
                         child: Container(
                       padding: const EdgeInsets.all(24),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
                             color: Colors.white,
