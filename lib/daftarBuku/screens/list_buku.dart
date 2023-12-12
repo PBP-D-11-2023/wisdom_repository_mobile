@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/rating.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/screens/request_form.dart';
 
 class BukuPage extends StatefulWidget {
   const BukuPage({Key? key}) : super(key: key);
@@ -226,6 +227,15 @@ class _BukuPageState extends State<BukuPage> {
                 child: Text('Adventure'),
               ),
             ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RequestFormPage()),
+              );
+            },
+            child: Text('Request Buku'),
           ),
           Expanded(
             child: FutureBuilder<List<Buku>>(
