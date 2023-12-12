@@ -1,6 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:http/http.dart' as http;
@@ -42,8 +43,18 @@ class DetailBuku extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // bookmark
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BookmarkPage()),
+                );
+                var url = Uri.parse(
+                    'https://wisdomrepository--wahyuridho5.repl.co/add_bookmark_ajax/');
+                var response = await http.get(
+                    url,
+                );
+                
               },
               child: const Text('Bookmark'),
             ),
