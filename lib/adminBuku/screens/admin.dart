@@ -3,6 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/buku_form.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/list_buku.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/list_request.dart';
+import 'package:wisdom_repository_mobile/adminBuku/screens/logout.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
@@ -24,6 +25,7 @@ class _AdminPageState extends State<AdminPage> {
     const BukuPage(),
     const BukuFormPage(),
     const RequestPage(),
+    const LogoutPage(),
   ];
 
   @override
@@ -61,6 +63,10 @@ class _AdminPageState extends State<AdminPage> {
                 GButton(
                   icon: Icons.request_page,
                   text: 'Request',
+                ),
+                GButton(
+                  icon: Icons.logout,
+                  text: 'Logout',
                 ),
               ],
             ),
