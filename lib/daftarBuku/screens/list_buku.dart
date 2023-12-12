@@ -8,6 +8,7 @@ import 'dart:convert';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/rating.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/screens/request_form.dart';
 
 class BukuPage extends StatefulWidget {
   const BukuPage({Key? key}) : super(key: key);
@@ -38,7 +39,7 @@ class _BukuPageState extends State<BukuPage> {
     if (!_booksFetched) {
       final request = context.watch<CookieRequest>();
       final response = await request.get(
-        'https://wisdomrepository--wahyuridho5.repl.co/main/get_books_json/', 
+        'https://wisdomrepository--wahyuridho5.repl.co/main/get_books_json/',
       );
 
       List<Buku> buku = [];
@@ -60,10 +61,9 @@ class _BukuPageState extends State<BukuPage> {
   void fetchRating() async {
     //use http get
     var response;
-    response =
-        await http.post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/get_rating/'));
+    response = await http.post(Uri.parse(
+        'https://wisdomrepository--wahyuridho5.repl.co/main/get_rating/'));
 
- 
     List<Rating> rating = [];
     var data = jsonDecode(response.body);
     for (var i in data) {
@@ -77,7 +77,6 @@ class _BukuPageState extends State<BukuPage> {
       }
     }
   }
-
 
   void _filterBuku(String query) {
     List<Buku> filteredList = _bukuSemua
@@ -97,7 +96,8 @@ class _BukuPageState extends State<BukuPage> {
     };
     var response;
     response = await http.post(
-      Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/search_books_json/'),
+      Uri.parse(
+          'https://wisdomrepository--wahyuridho5.repl.co/main/search_books_json/'),
       body: body,
     );
 
@@ -125,14 +125,14 @@ class _BukuPageState extends State<BukuPage> {
   void sortBuku(String nama) async {
     var response;
     if (nama == "judul") {
-      response = await http
-          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/judul'));
+      response = await http.post(Uri.parse(
+          'https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/judul'));
     } else if (nama == "tahun") {
-      response = await http
-          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/tahun'));
+      response = await http.post(Uri.parse(
+          'https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/tahun'));
     } else if (nama == "rating") {
-      response = await http
-          .post(Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/rating'));
+      response = await http.post(Uri.parse(
+          'https://wisdomrepository--wahyuridho5.repl.co/main/sortjson/rating'));
     }
 
     List<Buku> buku = [];
@@ -205,7 +205,7 @@ class _BukuPageState extends State<BukuPage> {
             ],
           ),
           Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               ElevatedButton(
                 onPressed: () {
@@ -226,6 +226,15 @@ class _BukuPageState extends State<BukuPage> {
                 child: Text('Adventure'),
               ),
             ],
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => RequestFormPage()),
+              );
+            },
+            child: Text('Request Buku'),
           ),
           Expanded(
             child: FutureBuilder<List<Buku>>(
