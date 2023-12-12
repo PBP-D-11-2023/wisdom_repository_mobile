@@ -31,17 +31,23 @@ class _AdminPageState extends State<AdminPage> {
     return Scaffold(
       body: _pages[currentIndex],
       bottomNavigationBar: Container(
-        color: Colors.black,
+        decoration: const BoxDecoration(
+          color: Color(0xFF37465D),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12.0),
+            topRight: Radius.circular(12.0),
+          ),
+        ),
         child: SafeArea(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             child: GNav(
               onTabChange: (index) => goToPage(index),
               gap: 8,
-              backgroundColor: Colors.black,
-              color: Colors.white,
-              activeColor: Colors.white,
-              tabBackgroundColor: Colors.grey.shade800,
+              backgroundColor: const Color(0xFF37465D),
+              color: const Color(0xFF4DC7BF),
+              activeColor: const Color(0xFF37465D),
+              tabBackgroundColor: const Color(0xFF4DC7BF),
               padding: const EdgeInsets.all(16),
               tabs: const [
                 GButton(
