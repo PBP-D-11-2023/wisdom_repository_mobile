@@ -44,9 +44,12 @@ class DetailRequest extends StatelessWidget {
                             color: Colors.white,
                             height: 175,
                             width: 125,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Image.network(buku.fields.gambar),
+                            child: Hero(
+                              tag: buku.pk,
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Image.network(buku.fields.gambar),
+                              ),
                             ),
                           ),
                           const SizedBox(width: 16),
