@@ -1,6 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:http/http.dart' as http;
@@ -13,6 +18,7 @@ class DetailBuku extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: Text(buku.fields.judul),
@@ -43,12 +49,39 @@ class DetailBuku extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 // bookmark
-      
-
+                int bookId = buku.pk;
+                final response = await request.post(
+                  'https://wisdomrepository--wahyuridho5.repl.co/add-bookmark-ajax/',
+                  jsonEncode(<String, int>{
+                    'id_buku' : bookId
+                  })
+                );
+                String message = response['message'];
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text('Bookmark'),
+                      content: Text('$message !'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                            Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (BuildContext context) => const BookmarkPage(),
+                            ));
+                          },
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+            
               },
-              child: const Text('Bookmark'),
+              child: const Text('Bookmark'), // Add your button text here
             ),
           ],
         ),

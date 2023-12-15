@@ -8,6 +8,7 @@ import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/main.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 
 void main() {
     runApp(const LoginApp());
@@ -95,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                                 if (request.loggedIn) {
                                     String message = response['message'];
                                     String uname = response['username'];
-                                    String member = response['member'];
+                                    member = response['member'];
                                     String tipe = response['tipe'];
                                     if (tipe == 'admin'){
                                       Navigator.pushReplacement(

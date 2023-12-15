@@ -1,5 +1,9 @@
+import 'dart:js_util';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:wisdom_repository_mobile/main.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
@@ -14,16 +18,15 @@ class BookmarkPage extends StatefulWidget {
 class _BookmarkPageState extends State<BookmarkPage> {
 @override
 Widget build(BuildContext context) {
+  final request = context.watch<CookieRequest>();
   Future<List<Bookmark>> fetchProduct() async {
       // Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
-      var url = Uri.parse(
-          'https://wisdomrepository--wahyuridho5.repl.co/get_bookmark_user/');
-      var response = await http.get(
-          url,
+      var response = await request.get(
+          'https://wisdomrepository--wahyuridho5.repl.co/get-bookmark-user/'
       );
 
       // melakukan decode response menjadi bentuk json
-      var data = jsonDecode(utf8.decode(response.bodyBytes));
+      var data = response;
 
       // melakukan konversi data json menjadi object Product
       List<Bookmark> list_bookmark = [];
@@ -56,33 +59,81 @@ Widget build(BuildContext context) {
                         ],
                     );
                 } else {
-                    return ListView.builder(
+                    return 
+                    ListView.builder(
                       itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) => GestureDetector(
                         child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           padding: const EdgeInsets.all(20.0),
-                          child: Column(
+                          child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
-                                "${snapshot.data![index].fields.judul}",
-                                style: const TextStyle(
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text("${snapshot.data![index].fields.gambar}"),
-                            ],
+                              Image.network(snapshot.data![index].fields.gambar),
+                              const SizedBox(width: 10),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start, // Added CrossAxisAlignment
+                                children: [
+                                  Text(
+                                    "${snapshot.data![index].fields.judul}",
+                                    style: const TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  ElevatedButton(
+                                      onPressed: () async {
+                                        try {
+                                          int bookmarkId = snapshot.data![index].pk; 
+                                          final response = await request.post(
+                                            'http://localhost:8000/delete-bookmark-flutter/',
+                                            jsonEncode(<String, int>{
+                                              'id_buku' : bookmarkId
+                                            })
+                                          );
+                                          if (response['status']){
+                                            String message = "Berhasil menghapus buku ${snapshot.data![index].fields.judul}";
+                                            setState(() {
+                                              snapshot.data!.removeAt(index);
+                                            });
+                                            // ignore: use_build_context_synchronously
+                                            ScaffoldMessenger.of(context)
+                                              ..hideCurrentSnackBar()
+                                              ..showSnackBar(
+                                                SnackBar(content: Text("$message!")),
+                                              );
+                                            print('Permintaan hapus berhasil');
+                                            // Lakukan tindakan yang diperlukan setelah penghapusan berhasil
+                                            fetchProduct();
+                                          } else {
+                                            print('Permintaan hapus tidak berhasil');
+                                          }
+                                        } catch (error) {
+                                          print('Error: $error');
+                                        }
+                                      },
+                                      child: const Text('Delete'),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  ElevatedButton(
+                                    onPressed: (){
+
+                                    }, 
+                                    child: const Text('Pinjam'),
+                                  ),
+                                  const SizedBox(height: 10),
+                                ], // Added closing bracket for children of Column
+                              ), // Added closing bracket for Column
+                            ], // Added closing bracket for children of Row
                           ),
                         ),
                       ),
                     );
-
-                    }
+                  }
                 }
             }));
     }
 }
+

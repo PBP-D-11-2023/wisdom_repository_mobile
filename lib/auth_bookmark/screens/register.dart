@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/login.dart';
 
+String member = "";
+
 void main() {
   runApp(const RegisterApp());
 }
