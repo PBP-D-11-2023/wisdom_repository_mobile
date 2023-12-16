@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:wisdom_repository_mobile/adminBuku/screens/logout.dart';
 import 'dart:convert';
 import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
 
@@ -42,14 +41,6 @@ Widget build(BuildContext context) {
       ),
       body: Stack(
         children: [
-          // Background image
-          Positioned(
-            child: Image.asset(
-               'assets/images/background_bookmark.png',
-              fit: BoxFit.cover,
-            ),
-          ),
-          // Teks di atas background image
           const Positioned(
             top: 20,
             left: 16,
@@ -162,10 +153,7 @@ Widget build(BuildContext context) {
                                   const SizedBox(height: 10),
                                   ElevatedButton(
                                     onPressed: (){
-                                      Navigator.pushReplacement(
-                                        context,
-                                      MaterialPageRoute(builder: (context) => const LogoutPage()),
-                                      );
+                                      
                                     }, 
                                     child: const Text('Pinjam'),
                                   ),
