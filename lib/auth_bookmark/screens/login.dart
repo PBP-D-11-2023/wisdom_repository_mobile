@@ -78,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: const Text(
                             "Don't have an account yet? Register Now",
                             style: TextStyle(
-                              color: Colors.blue, // Atur warna teks agar terlihat sebagai tautan
+                              color: Colors.blue,
                             ),
                           ),
                         ),
