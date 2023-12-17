@@ -13,35 +13,30 @@ class CustomBottomNavigationBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildButton(IconData(0xf107, fontFamily: 'MaterialIcons'), () {
-              // Handle Home button tap
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const BukuPage()),
               );
             }),
             _buildButton(IconData(0xeee2, fontFamily: 'MaterialIcons'), () {
-              // Handle Books button tap
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const BukuPage()),
               );
             }),
             _buildButton(Icons.library_books, () {
-            // Handle Add button tap
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const PeminjamanPage()),
               );
             }),
             _buildButton(Icons.assignment_turned_in, () {
-              // Handle Add button tap
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const PengembalianPage()),
               );
             }),
             _buildButton(Icons.person, () {
-              // Handle Profile button tap
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const BukuPage()),
