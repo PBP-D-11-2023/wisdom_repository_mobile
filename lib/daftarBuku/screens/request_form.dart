@@ -252,7 +252,7 @@ class _BukuFormPageState extends State<RequestFormPage> {
                       if (_formKey.currentState!.validate()) {
                         // Kirim ke Django dan tunggu respons
                         final response = await request.postJson(
-                            "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/create-request-flutter/",
+                            "http://localhost:8000/admin-buku/create-request-flutter/",
                             jsonEncode(<String, String>{
                               'isbn': _isbn,
                               'judul': _judul,
