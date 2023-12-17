@@ -134,7 +134,6 @@ class _PengembalianPageState extends State<PengembalianPage> {
                                         ElevatedButton(
                                           onPressed: () async {
                                             int idbuku = snapshot.data![index].idBuku;
-                                            print(idbuku);
                                             var response = await request.get(
                                               'http://localhost:8000/review/get-book-json/$idbuku/');
                                             Buku bukuKembali = Buku.fromJson(response[0]);
