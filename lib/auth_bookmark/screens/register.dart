@@ -123,7 +123,7 @@ class _RegistrationPageState extends State<RegisterPage> {
             const SizedBox(height: 24.0),
              RadioListTile<String>(
               title: const Text('Regular'),
-              value: 'regular', // sesuaikan dengan yang ada di Django
+              value: 'regular', 
               groupValue: selectedMember,
               onChanged: (value) {
                 setState(() {
@@ -133,7 +133,7 @@ class _RegistrationPageState extends State<RegisterPage> {
             ),
             RadioListTile<String>(
               title: const Text('Premium'),
-              value: 'premium', // sesuaikan dengan yang ada di Django
+              value: 'premium',
               groupValue: selectedMember,
               onChanged: (value) {
                 setState(() {
@@ -152,7 +152,7 @@ class _RegistrationPageState extends State<RegisterPage> {
               child: const Text(
                 "Already have an account? Login Now",
                 style: TextStyle(
-                  color: Colors.blue, // Atur warna teks agar terlihat sebagai tautan
+                  color: Colors.blue, 
                 ),
               ),
             ),

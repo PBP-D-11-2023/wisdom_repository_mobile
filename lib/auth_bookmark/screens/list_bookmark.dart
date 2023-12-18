@@ -1,11 +1,9 @@
-import 'dart:js_util';
+// ignore_for_file: avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
-import 'package:wisdom_repository_mobile/main.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/widgets/bottomnavbar.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/screens/pinjam_buku.dart';
@@ -31,43 +29,78 @@ Widget build(BuildContext context) {
       var data = response;
 
       // melakukan konversi data json menjadi object Product
-      List<Bookmark> list_bookmark = [];
+      List<Bookmark> listBookmark = [];
       for (var d in data) {
           if (d != null) {
-              list_bookmark.add(Bookmark.fromJson(d));
+              listBookmark.add(Bookmark.fromJson(d));
           }
       }
-      return list_bookmark;
+      return listBookmark;
   }
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: const Text('Bookmark'),
-        ),
-        body: FutureBuilder(
-            future: fetchProduct(),
-            builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.data == null) {
-                    return const Center(child: CircularProgressIndicator());
+      ),
+      body: Stack(
+        children: [
+          const Positioned(
+            top: 20,
+            left: 16,
+            child: Text(
+              'Daftar Bookmark',
+              style: TextStyle(
+                color: Color(0x0037465d),
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          // FutureBuilder untuk daftar bookmark
+          Positioned(
+            top: 60,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: FutureBuilder(
+              future: fetchProduct(),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(child: CircularProgressIndicator());
                 } else {
-                    if (!snapshot.hasData) {
-                    return const Column(
-                        children: [
-                        Text(
-                            "Tidak ada bookmark.",
-                            style:
-                                TextStyle(color: Color(0xff59A5D8), fontSize: 20),
-                        ),
-                        SizedBox(height: 8),
-                        ],
+                  if (snapshot.hasError) {
+                    return Center(
+                      child: Text('Error: ${snapshot.error}'),
                     );
-                } else {
-                    return 
-                    ListView.builder(
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (context, index) => GestureDetector(
-                        child: Container(
+                  } else {
+                    if (!snapshot.hasData || snapshot.data.isEmpty) {
+                      return const Center(
+                        child: Text(
+                          "Tidak ada bookmark.",
+                          style: TextStyle(
+                            color: Color(0xff59A5D8),
+                            fontSize: 20,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (context, index) => GestureDetector(
+                          child: Container(
                           margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                           padding: const EdgeInsets.all(20.0),
+                          decoration: BoxDecoration(
+                            color: Colors.white, 
+                            borderRadius: BorderRadius.circular(10), // Mengatur sudut (radius) kotak
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey.withOpacity(0.5),
+                                spreadRadius: 2,
+                                blurRadius: 4,
+                                offset: const Offset(0, 3), // Mengatur bayangan (shadow) kotak
+                              ),
+                            ],
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -76,6 +109,7 @@ Widget build(BuildContext context) {
                               const SizedBox(width: 10),
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start, // Added CrossAxisAlignment
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
                                     "${snapshot.data![index].fields.judul}",
@@ -138,13 +172,17 @@ Widget build(BuildContext context) {
                             ], // Added closing bracket for children of Row
                           ),
                         ),
-                      ),
-                    );
+                        ),
+                      );
+                    }
                   }
                 }
-            }),
-            bottomNavigationBar: CustomBottomNavigationBar(),
-            );
-    }
+              },
+            ),
+          ),
+        ],
+      ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
+    );
+  }
 }
-
