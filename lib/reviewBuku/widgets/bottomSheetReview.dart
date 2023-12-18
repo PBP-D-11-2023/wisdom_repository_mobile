@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pengembalian.dart';
 
 Future<bool> submitReview(int idBuku, String reviewText, int idPengembalian) async {
   final url = Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/review/post-review-flutter/');
@@ -80,6 +81,11 @@ void showReviewSheet(BuildContext context, Buku book, int idPengembalian) {
                   );
                 }
                 Navigator.pop(context); // Close the BottomSheet
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PengembalianPage()),
+                );
               },
               child: Text('Submit Review'),
             ),
