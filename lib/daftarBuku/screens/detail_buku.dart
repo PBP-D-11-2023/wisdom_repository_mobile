@@ -85,9 +85,6 @@ class DetailBuku extends StatelessWidget {
                         TextButton(
                           onPressed: () {
                             Navigator.of(context).pop();
-                            Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (BuildContext context) => const BookmarkPage(),
-                            ));
                           },
                           child: const Text('OK'),
                         ),
