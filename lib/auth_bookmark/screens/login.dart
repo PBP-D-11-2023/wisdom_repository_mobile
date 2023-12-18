@@ -52,6 +52,12 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                        Image.asset(
+                          'assets/images/logo_blue.png',
+                          height: 150,
+                          width: 150,
+                        ),
+                        const SizedBox(height: 12.0),
                         TextField(
                             controller: _usernameController,
                             decoration: const InputDecoration(
@@ -105,7 +111,7 @@ class _LoginPageState extends State<LoginPage> {
                                     } else {
                                       Navigator.pushReplacement(
                                         context,
-                                      MaterialPageRoute(builder: (context) => const BookmarkPage()),
+                                      MaterialPageRoute(builder: (context) => const BukuPage()),
                                       );
                                     }
                                     ScaffoldMessenger.of(context)

@@ -106,6 +106,12 @@ class _RegistrationPageState extends State<RegisterPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Image.asset(
+              'assets/images/logo_blue.png',
+              height: 150,
+              width: 150,
+            ),
+            const SizedBox(height: 12.0),
             TextField(
               controller: _usernameController,
               decoration: const InputDecoration(
