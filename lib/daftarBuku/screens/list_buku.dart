@@ -10,7 +10,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/rating.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/request_form.dart';
-import 'package:wisdom_repository_mobile/reviewBuku/screens/tempReturnedPage.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/widgets/bottomnavbar.dart';
 
 class BukuPage extends StatefulWidget {
   const BukuPage({Key? key}) : super(key: key);
@@ -155,23 +155,6 @@ class _BukuPageState extends State<BukuPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Daftar Buku"),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ReturnedBooksPage()),
-              );
-            },
-            child: const Text(
-              'TEMP Returned',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 16,
-              ),
-            ),
-          ),
-        ],
       ),
       body: Column(
         children: [
@@ -292,6 +275,7 @@ class _BukuPageState extends State<BukuPage> {
           ),
         ],
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

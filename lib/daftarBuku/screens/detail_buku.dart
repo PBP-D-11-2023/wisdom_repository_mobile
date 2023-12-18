@@ -10,6 +10,7 @@ import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:http/http.dart' as http;
 import 'package:wisdom_repository_mobile/reviewBuku/screens/lihat_review.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/screens/pinjam_buku.dart';
 
 class DetailBuku extends StatelessWidget {
   final Buku buku;
@@ -38,6 +39,14 @@ class DetailBuku extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // pinjam
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailPinjamBuku(
+                      idBuku: buku.pk,
+                    ),
+                  ),
+                );
               },
               child: Text('Pinjam'),
             ),

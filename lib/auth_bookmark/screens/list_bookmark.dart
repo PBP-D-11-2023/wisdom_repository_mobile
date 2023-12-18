@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:wisdom_repository_mobile/main.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/widgets/bottomnavbar.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/screens/pinjam_buku.dart';
 
 class BookmarkPage extends StatefulWidget {
     const BookmarkPage({Key? key}) : super(key: key);
@@ -88,7 +90,7 @@ Widget build(BuildContext context) {
                                         try {
                                           int bookmarkId = snapshot.data![index].pk; 
                                           final response = await request.post(
-                                            'http://localhost:8000/delete-bookmark-flutter/',
+                                            'https://wisdomrepository--wahyuridho5.repl.co/delete-bookmark-flutter/',
                                             jsonEncode(<String, int>{
                                               'id_buku' : bookmarkId
                                             })
@@ -119,7 +121,14 @@ Widget build(BuildContext context) {
                                   const SizedBox(height: 10),
                                   ElevatedButton(
                                     onPressed: (){
-
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => DetailPinjamBuku(
+                                            idBuku: snapshot.data![index].fields.buku,
+                                          ),
+                                        ),
+                                      );
                                     }, 
                                     child: const Text('Pinjam'),
                                   ),
@@ -133,7 +142,9 @@ Widget build(BuildContext context) {
                     );
                   }
                 }
-            }));
+            }),
+            bottomNavigationBar: CustomBottomNavigationBar(),
+            );
     }
 }
 
