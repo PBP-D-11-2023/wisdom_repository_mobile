@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pengembalian.dart';
 
-Future<bool> submitReview(int idBuku, String reviewText) async {
+Future<bool> submitReview(int idBuku, String reviewText, int idPengembalian) async {
   final url = Uri.parse('https://wisdomrepository--wahyuridho5.repl.co/review/post-review-flutter/');
 
   //TESTING
@@ -16,6 +17,7 @@ Future<bool> submitReview(int idBuku, String reviewText) async {
   final body = jsonEncode({
     'idBuku': idBuku,
     'review_text': reviewText,
+    'idPengembalian': idPengembalian,
   });
 
   try {
@@ -32,7 +34,7 @@ Future<bool> submitReview(int idBuku, String reviewText) async {
   }
 }
 
-void showReviewSheet(BuildContext context, Buku book) {
+void showReviewSheet(BuildContext context, Buku book, int idPengembalian) {
   TextEditingController reviewController = TextEditingController();
 
   showModalBottomSheet(
@@ -63,7 +65,7 @@ void showReviewSheet(BuildContext context, Buku book) {
             ElevatedButton(
               onPressed: () async {
                 String reviewText = reviewController.text;
-                bool success = await submitReview(book.pk, reviewText);
+                bool success = await submitReview(book.pk, reviewText, idPengembalian);
                 if (success) {
                   Navigator.pushReplacement(
                     context,
@@ -79,6 +81,11 @@ void showReviewSheet(BuildContext context, Buku book) {
                   );
                 }
                 Navigator.pop(context); // Close the BottomSheet
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PengembalianPage()),
+                );
               },
               child: Text('Submit Review'),
             ),

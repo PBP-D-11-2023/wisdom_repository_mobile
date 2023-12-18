@@ -56,7 +56,7 @@ class _PengembalianPageState extends State<PengembalianPage> {
                       Stack(
                         children: [
                           Image.asset(
-                            'assets/images/banner.png',
+                            'assets/images/background_bookmark.png',
                             height: 250,
                             width: double.infinity,
                             fit: BoxFit.cover,
@@ -137,7 +137,7 @@ class _PengembalianPageState extends State<PengembalianPage> {
                                             var response = await request.get(
                                               'https://wisdomrepository--wahyuridho5.repl.co/review/get-book-json/$idbuku/');
                                             Buku bukuKembali = Buku.fromJson(response[0]);
-                                            showReviewSheet(context, bukuKembali);
+                                            showReviewSheet(context, bukuKembali, snapshot.data![index].pk);
                                           },
                                           style: ElevatedButton.styleFrom(
                                             shape: RoundedRectangleBorder(
