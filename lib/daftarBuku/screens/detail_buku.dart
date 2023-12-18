@@ -9,6 +9,8 @@ import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dar
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:http/http.dart' as http;
+import 'package:wisdom_repository_mobile/reviewBuku/screens/lihat_review.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/screens/pinjam_buku.dart';
 
 class DetailBuku extends StatelessWidget {
   final Buku buku;
@@ -37,6 +39,14 @@ class DetailBuku extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // pinjam
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailPinjamBuku(
+                      idBuku: buku.pk,
+                    ),
+                  ),
+                );
               },
               child: Text('Pinjam'),
             ),
@@ -44,6 +54,9 @@ class DetailBuku extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // lihat review
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                  builder: (BuildContext context) => ReviewBuku(buku: buku),
+                ));
               },
               child: Text('Lihat Review'),
             ),
@@ -54,6 +67,9 @@ class DetailBuku extends StatelessWidget {
                 int bookId = buku.pk;
                 final response = await request.post(
                   'https://wisdomrepository--wahyuridho5.repl.co/add-bookmark-ajax/',
+
+                  //TESTING
+                  // 'http://127.0.0.1:8000/add-bookmark-ajax/',
                   jsonEncode(<String, int>{
                     'id_buku' : bookId
                   })

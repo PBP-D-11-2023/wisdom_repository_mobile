@@ -5,6 +5,8 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'dart:convert';
 import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/widgets/bottomnavbar.dart';
+import 'package:wisdom_repository_mobile/pinjamBuku/screens/pinjam_buku.dart';
 
 class BookmarkPage extends StatefulWidget {
     const BookmarkPage({Key? key}) : super(key: key);
@@ -151,18 +153,29 @@ Widget build(BuildContext context) {
                                       child: const Text('Delete'),
                                   ),
                                   const SizedBox(height: 10),
-                                  ElevatedButton(
-                                    onPressed: (){
-                                      
-                                    }, 
-                                    child: const Text('Pinjam'),
-                                  ),
-                                  const SizedBox(height: 10),
-                                ], // Added closing bracket for children of Column
-                              ), // Added closing bracket for Column
-                            ], // Added closing bracket for children of Row
+                                    ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                DetailPinjamBuku(
+                                              idBuku: snapshot.data![
+                                                      index]
+                                                  .fields
+                                                  .buku,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text('Pinjam'),
+                                    ),
+                                    const SizedBox(height: 10),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
                         ),
                       );
                     }
@@ -173,6 +186,7 @@ Widget build(BuildContext context) {
           ),
         ],
       ),
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }
