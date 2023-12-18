@@ -95,75 +95,83 @@ class _RegistrationPageState extends State<RegisterPage> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
+@override
+Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Registration Form'),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                labelText: 'Username',
+      body: SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset(
+                'assets/images/logo_blue.png',
+                height: 150,
+                width: 150,
               ),
-            ),
-            const SizedBox(height: 12.0),
-            TextField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
-              obscureText: true,
-            ),
-            const SizedBox(height: 24.0),
-             RadioListTile<String>(
-              title: const Text('Regular'),
-              value: 'regular', // sesuaikan dengan yang ada di Django
-              groupValue: selectedMember,
-              onChanged: (value) {
-                setState(() {
-                  selectedMember = value;
-                });
-              },
-            ),
-            RadioListTile<String>(
-              title: const Text('Premium'),
-              value: 'premium', // sesuaikan dengan yang ada di Django
-              groupValue: selectedMember,
-              onChanged: (value) {
-                setState(() {
-                  selectedMember = value;
-                });
-              },
-            ),
-            const SizedBox(height: 24.0),
-            TextButton(
-              onPressed: () async {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
-              },
-              child: const Text(
-                "Already have an account? Login Now",
-                style: TextStyle(
-                  color: Colors.blue, // Atur warna teks agar terlihat sebagai tautan
+              const SizedBox(height: 8.0),
+              TextField(
+                controller: _usernameController,
+                decoration: const InputDecoration(
+                  labelText: 'Username',
                 ),
               ),
-            ),
-            const SizedBox(height: 24.0),
-            ElevatedButton(
-              onPressed: () async {
-                await _registerUser();
-              },
-              child: const Text('Register'),
-            ),
-          ],
+              const SizedBox(height: 8.0),
+              TextField(
+                controller: _passwordController,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                ),
+                obscureText: true,
+              ),
+              const SizedBox(height: 8.0),
+              RadioListTile<String>(
+                title: const Text('Regular'),
+                value: 'regular',
+                groupValue: selectedMember,
+                onChanged: (value) {
+                  setState(() {
+                    selectedMember = value;
+                  });
+                },
+              ),
+              RadioListTile<String>(
+                title: const Text('Premium'),
+                value: 'premium',
+                groupValue: selectedMember,
+                onChanged: (value) {
+                  setState(() {
+                    selectedMember = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 8.0),
+              TextButton(
+                onPressed: () async {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()),
+                  );
+                },
+                child: const Text(
+                  "Already have an account? Login Now",
+                  style: TextStyle(
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8.0),
+              ElevatedButton(
+                onPressed: () async {
+                  await _registerUser();
+                },
+                child: const Text('Register'),
+              ),
+            ],
+          ),
         ),
       ),
     );
