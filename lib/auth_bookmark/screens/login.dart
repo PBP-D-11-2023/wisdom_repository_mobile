@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/admin.dart';
-import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
-import 'package:wisdom_repository_mobile/main.dart';
-import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 
 void main() {
     runApp(const LoginApp());
@@ -78,7 +77,7 @@ class _LoginPageState extends State<LoginPage> {
                           child: const Text(
                             "Don't have an account yet? Register Now",
                             style: TextStyle(
-                              color: Colors.blue, // Atur warna teks agar terlihat sebagai tautan
+                              color: Colors.blue,
                             ),
                           ),
                         ),
@@ -106,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                                     } else {
                                       Navigator.pushReplacement(
                                         context,
-                                      MaterialPageRoute(builder: (context) => const BukuPage()),
+                                      MaterialPageRoute(builder: (context) => const BookmarkPage()),
                                       );
                                     }
                                     ScaffoldMessenger.of(context)
@@ -119,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                                         builder: (context) => AlertDialog(
                                             title: const Text('Login Gagal'),
                                             content:
-                                                Text(response['message']),
+                                                const Text("Login gagal, periksa kembali username atau kata sandi."),
                                             actions: [
                                                 TextButton(
                                                     child: const Text('OK'),
