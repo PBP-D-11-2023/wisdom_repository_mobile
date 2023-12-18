@@ -3,6 +3,7 @@ import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pinjam.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pengembalian.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
+import 'package:wisdom_repository_mobile/adminBuku/screens/logout.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   @override
@@ -40,7 +41,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
             _buildButton(Icons.person, () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const BukuPage()),
+                MaterialPageRoute(builder: (context) => AdjustedLogoutPage()),
               );
             }),
           ],
@@ -63,6 +64,16 @@ class CustomBottomNavigationBar extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class AdjustedLogoutPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: const LogoutPage(), // Your desired body widget (e.g., LogoutPage)
+      bottomNavigationBar: CustomBottomNavigationBar(), // Your desired bottom navigation bar
     );
   }
 }
