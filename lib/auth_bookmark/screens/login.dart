@@ -1,16 +1,14 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/admin.dart';
-import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
-import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
-import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 
 void main() {
-    runApp(const LoginApp());
+  runApp(const LoginApp());
 }
 
 class LoginApp extends StatelessWidget {
@@ -21,7 +19,7 @@ class LoginApp extends StatelessWidget {
     return MaterialApp(
       title: 'Login',
       theme: ThemeData(
-      primarySwatch: Colors.blue,
+        primarySwatch: Colors.blue,
       ),
       home: const LoginPage(),
     );
@@ -29,11 +27,13 @@ class LoginApp extends StatelessWidget {
 }
 
 class LoginPage extends StatefulWidget {
-    const LoginPage({super.key});
+  const LoginPage({super.key});
 
-    @override
-    _LoginPageState createState() => _LoginPageState();
+  @override
+  // ignore: library_private_types_in_public_api
+  _LoginPageState createState() => _LoginPageState();
 }
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -77,13 +77,15 @@ class _LoginPageState extends State<LoginPage> {
                 onPressed: () async {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => const RegisterPage()),
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterPage()),
                   );
                 },
                 child: const Text(
                   "Don't have an account yet? Register Now",
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(0xFF37465D),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -109,23 +111,27 @@ class _LoginPageState extends State<LoginPage> {
                     if (tipe == 'admin') {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const AdminPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const AdminPage()),
                       );
                     } else {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => const BukuPage()),
+                        MaterialPageRoute(
+                            builder: (context) => const BukuPage()),
                       );
                     }
                     ScaffoldMessenger.of(context)
                       ..hideCurrentSnackBar()
-                      ..showSnackBar(SnackBar(content: Text("$message Selamat datang, $uname.")));
+                      ..showSnackBar(SnackBar(
+                          content: Text("$message Selamat datang, $uname.")));
                   } else {
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
                         title: const Text('Login Gagal'),
-                        content: const Text("Login gagal, periksa kembali username atau kata sandi."),
+                        content: const Text(
+                            "Login gagal, periksa kembali username atau kata sandi."),
                         actions: [
                           TextButton(
                             child: const Text('OK'),
@@ -138,7 +144,19 @@ class _LoginPageState extends State<LoginPage> {
                     );
                   }
                 },
-                child: const Text('Login'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF37465D),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 24.0),
+                  minimumSize: const Size(200, 60.0),
+                ),
+                child: const Text(
+                  'Login',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),

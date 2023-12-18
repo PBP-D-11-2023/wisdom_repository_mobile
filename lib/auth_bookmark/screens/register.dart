@@ -33,21 +33,21 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegistrationPageState extends State<RegisterPage> {
-  String? selectedMember; // Tambahkan variabel untuk menyimpan pilihan radio button
+  String?
+      selectedMember; // Tambahkan variabel untuk menyimpan pilihan radio button
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   Future<void> _registerUser() async {
-    final url = Uri.parse("https://wisdomrepository--wahyuridho5.repl.co/register-flutter/");
+    final url = Uri.parse(
+        "https://wisdomrepository--wahyuridho5.repl.co/register-flutter/");
     final response = await http.post(
       url,
       body: {
         'username': _usernameController.text,
         'member': selectedMember ?? '',
-        'password1':
-            _passwordController.text, // Modify to match Django form fields
-        'password2':
-            _passwordController.text, // Modify to match Django form fields
+        'password1': _passwordController.text,
+        'password2': _passwordController.text,
       },
     );
 
@@ -80,7 +80,8 @@ class _RegistrationPageState extends State<RegisterPage> {
         builder: (BuildContext context) {
           return AlertDialog(
             title: const Text('Error'),
-            content: const Text('Registrasi gagal, silakan perbaiki data yang dimasukkan.'),
+            content: const Text(
+                'Registrasi gagal, silakan perbaiki data yang dimasukkan.'),
             actions: <Widget>[
               TextButton(
                 onPressed: () {
@@ -95,10 +96,11 @@ class _RegistrationPageState extends State<RegisterPage> {
     }
   }
 
-@override
-Widget build(BuildContext context) {
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Registration Form'),
       ),
       body: SingleChildScrollView(
@@ -159,7 +161,8 @@ Widget build(BuildContext context) {
                 child: const Text(
                   "Already have an account? Login Now",
                   style: TextStyle(
-                    color: Colors.blue,
+                    color: Color(0xFF37465D),
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -168,7 +171,19 @@ Widget build(BuildContext context) {
                 onPressed: () async {
                   await _registerUser();
                 },
-                child: const Text('Register'),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF37465D),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 16.0, horizontal: 24.0),
+                  minimumSize: const Size(200, 60.0),
+                ),
+                child: const Text(
+                  'Register',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
               ),
             ],
           ),

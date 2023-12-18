@@ -136,7 +136,7 @@ class _BukuPageState extends State<BukuPage> {
             children: [
               Image.asset(
                 'assets/images/home.png',
-                height: 150, 
+                height: 150,
                 fit: BoxFit.fill,
               ),
               Padding(
@@ -147,7 +147,7 @@ class _BukuPageState extends State<BukuPage> {
                       children: [
                         Expanded(
                           child: SizedBox(
-                            height: 40.0, 
+                            height: 40.0,
                             child: TextField(
                               controller: _searchController,
                               decoration: InputDecoration(
@@ -174,8 +174,7 @@ class _BukuPageState extends State<BukuPage> {
                             _filterBuku(_searchText);
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor:
-                                const Color(0xFF37465D), 
+                            backgroundColor: const Color(0xFF37465D),
                           ),
                           child: const Icon(
                             Icons.search,
@@ -200,48 +199,42 @@ class _BukuPageState extends State<BukuPage> {
                             child: Row(
                               children: [
                                 SizedBox(
-                                  height: 30, 
+                                  height: 30,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       sortBuku('judul');
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(
-                                          0xFF37465D), 
-                                      foregroundColor: Colors
-                                          .white, 
+                                      backgroundColor: const Color(0xFF37465D),
+                                      foregroundColor: Colors.white,
                                     ),
                                     child: const Text('Judul'),
                                   ),
                                 ),
                                 const SizedBox(width: 4),
                                 SizedBox(
-                                  height: 30, 
+                                  height: 30,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       sortBuku('rating');
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(
-                                          0xFF37465D), 
-                                      foregroundColor: Colors
-                                          .white, 
+                                      backgroundColor: const Color(0xFF37465D),
+                                      foregroundColor: Colors.white,
                                     ),
                                     child: const Text('Rating'),
                                   ),
                                 ),
                                 const SizedBox(width: 4),
                                 SizedBox(
-                                  height: 30, 
+                                  height: 30,
                                   child: ElevatedButton(
                                     onPressed: () {
                                       sortBuku('tahun');
                                     },
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: const Color(
-                                          0xFF37465D), 
-                                      foregroundColor: Colors
-                                          .white, 
+                                      backgroundColor: const Color(0xFF37465D),
+                                      foregroundColor: Colors.white,
                                     ),
                                     child: const Text('Tahun'),
                                   ),
@@ -259,48 +252,42 @@ class _BukuPageState extends State<BukuPage> {
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           SizedBox(
-                            height: 30, 
+                            height: 30,
                             child: ElevatedButton(
                               onPressed: () {
                                 _filterGenre('Fiction');
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color(0xFF37465D), 
-                                foregroundColor:
-                                    Colors.white, 
+                                backgroundColor: const Color(0xFF37465D),
+                                foregroundColor: Colors.white,
                               ),
                               child: const Text('Fiction'),
                             ),
                           ),
                           const SizedBox(width: 4),
                           SizedBox(
-                            height: 30, 
+                            height: 30,
                             child: ElevatedButton(
                               onPressed: () {
                                 _filterGenre('Drama');
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color(0xFF37465D), 
-                                foregroundColor:
-                                    Colors.white, 
+                                backgroundColor: const Color(0xFF37465D),
+                                foregroundColor: Colors.white,
                               ),
                               child: const Text('Drama'),
                             ),
                           ),
                           const SizedBox(width: 4),
                           SizedBox(
-                            height: 30, 
+                            height: 30,
                             child: ElevatedButton(
                               onPressed: () {
                                 _filterGenre('Adventure');
                               },
                               style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    const Color(0xFF37465D), 
-                                foregroundColor:
-                                    Colors.white, 
+                                backgroundColor: const Color(0xFF37465D),
+                                foregroundColor: Colors.white,
                               ),
                               child: const Text('Adventure'),
                             ),
@@ -363,6 +350,8 @@ class _BukuPageState extends State<BukuPage> {
                                 );
                               },
                             );
+                          } else if (snapshot.hasError) {
+                            return Text("${snapshot.error}");
                           } else {
                             return const CircularProgressIndicator();
                           }
