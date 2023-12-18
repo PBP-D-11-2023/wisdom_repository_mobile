@@ -57,7 +57,7 @@ class _PeminjamanPageState extends State<PeminjamanPage> {
                       Stack(
                         children: [
                           Image.asset(
-                            'assets/images/banner.png',
+                            'assets/images/background_bookmark.png',
                             height: 250,
                             width: double.infinity,
                             fit: BoxFit.cover,

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/admin.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 
@@ -103,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                                     } else {
                                       Navigator.pushReplacement(
                                         context,
-                                      MaterialPageRoute(builder: (context) => const BukuPage()),
+                                      MaterialPageRoute(builder: (context) => const BookmarkPage()),
                                       );
                                     }
                                     ScaffoldMessenger.of(context)
