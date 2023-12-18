@@ -6,6 +6,8 @@ import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dar
 import 'package:wisdom_repository_mobile/adminBuku/screens/logout.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
+  const CustomBottomNavigationBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,13 +16,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildButton(IconData(0xf107, fontFamily: 'MaterialIcons'), () {
+            _buildButton(const IconData(0xf107, fontFamily: 'MaterialIcons'), () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const BukuPage()),
               );
             }),
-            _buildButton(IconData(0xeee2, fontFamily: 'MaterialIcons'), () {
+            _buildButton(const IconData(0xeee2, fontFamily: 'MaterialIcons'), () {
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (context) => const BookmarkPage()),
@@ -41,7 +43,7 @@ class CustomBottomNavigationBar extends StatelessWidget {
             _buildButton(Icons.person, () {
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => AdjustedLogoutPage()),
+                MaterialPageRoute(builder: (context) => const AdjustedLogoutPage()),
               );
             }),
           ],
@@ -54,14 +56,9 @@ class CustomBottomNavigationBar extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(
-              icon,
-              color: Colors.white,
-            ),
-          ],
+        child: Icon(
+          icon,
+          color: Colors.white,
         ),
       ),
     );
@@ -69,11 +66,13 @@ class CustomBottomNavigationBar extends StatelessWidget {
 }
 
 class AdjustedLogoutPage extends StatelessWidget {
+  const AdjustedLogoutPage({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: const LogoutPage(), // Your desired body widget (e.g., LogoutPage)
-      bottomNavigationBar: CustomBottomNavigationBar(), // Your desired bottom navigation bar
+    return const Scaffold(
+      body: LogoutPage(), 
+      bottomNavigationBar: CustomBottomNavigationBar(),
     );
   }
 }

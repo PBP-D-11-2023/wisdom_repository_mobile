@@ -30,7 +30,6 @@ class _BukuFormPageState extends State<RequestFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Form Request Buku'),
-        automaticallyImplyLeading: false,
       ),
       body: Form(
         key: _formKey,

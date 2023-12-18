@@ -2,10 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/login.dart';
-import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
-import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() {

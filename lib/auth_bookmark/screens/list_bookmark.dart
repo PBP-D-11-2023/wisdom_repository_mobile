@@ -1,17 +1,18 @@
 // ignore_for_file: avoid_print, use_build_context_synchronously
 
-import 'package:flutter/material.dart';
-import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:provider/provider.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/models/bookmark.dart';
-import 'package:wisdom_repository_mobile/pinjamBuku/widgets/bottomnavbar.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/screens/pinjam_buku.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/widgets/bottom_navbar.dart';
 
 class BookmarkPage extends StatefulWidget {
   const BookmarkPage({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _BookmarkPageState createState() => _BookmarkPageState();
 }
 
@@ -37,6 +38,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Bookmark'),
       ),
       body: Stack(
@@ -104,8 +106,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
                               style: TextStyle(
                                 fontSize: 16,
                                 color: Color(0xFF37465D),
-                                ),
-                              
+                              ),
                             ),
                           ),
                           Expanded(
@@ -131,8 +132,10 @@ class _BookmarkPageState extends State<BookmarkPage> {
                                       ],
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Image.network(
                                           bookmark.fields.gambar,
@@ -157,13 +160,17 @@ class _BookmarkPageState extends State<BookmarkPage> {
                                               const SizedBox(height: 10),
                                               ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color.fromARGB(255, 252, 214, 214),
-                                                  elevation: 5, 
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 252, 214, 214),
+                                                  elevation: 5,
                                                 ),
                                                 onPressed: () async {
                                                   try {
-                                                    int bookmarkId = bookmark.pk;
-                                                    final response = await request.post(
+                                                    int bookmarkId =
+                                                        bookmark.pk;
+                                                    final response =
+                                                        await request.post(
                                                       'https://wisdomrepository--wahyuridho5.repl.co/delete-bookmark-flutter/',
                                                       jsonEncode(<String, int>{
                                                         'id_buku': bookmarkId
@@ -173,17 +180,20 @@ class _BookmarkPageState extends State<BookmarkPage> {
                                                       String message =
                                                           "Berhasil menghapus buku ${bookmark.fields.judul}";
                                                       setState(() {
-                                                        snapshot.data!.removeAt(index);
+                                                        snapshot.data!
+                                                            .removeAt(index);
                                                       });
-                                                      ScaffoldMessenger.of(context)
+                                                      ScaffoldMessenger.of(
+                                                          context)
                                                         ..hideCurrentSnackBar()
                                                         ..showSnackBar(
                                                           SnackBar(
-                                                            content:
-                                                                Text("$message!"),
+                                                            content: Text(
+                                                                "$message!"),
                                                           ),
                                                         );
-                                                      print('Permintaan hapus berhasil');
+                                                      print(
+                                                          'Permintaan hapus berhasil');
                                                       fetchProduct();
                                                     } else {
                                                       print(
@@ -198,8 +208,10 @@ class _BookmarkPageState extends State<BookmarkPage> {
                                               const SizedBox(height: 10),
                                               ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
-                                                  backgroundColor: const Color.fromARGB(255, 204, 247, 227),
-                                                  elevation: 5, 
+                                                  backgroundColor:
+                                                      const Color.fromARGB(
+                                                          255, 204, 247, 227),
+                                                  elevation: 5,
                                                 ),
                                                 onPressed: () {
                                                   Navigator.push(
@@ -221,8 +233,9 @@ class _BookmarkPageState extends State<BookmarkPage> {
                                         ),
                                         const Icon(
                                           Icons.bookmark,
-                                          color: Color(0xFF37465D), 
-                                          size: 24, // Set the size of the bookmark icon
+                                          color: Color(0xFF37465D),
+                                          size:
+                                              24, // Set the size of the bookmark icon
                                         ),
                                       ],
                                     ),
@@ -241,7 +254,7 @@ class _BookmarkPageState extends State<BookmarkPage> {
           ),
         ],
       ),
-      bottomNavigationBar: CustomBottomNavigationBar(),
+      bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
 }
