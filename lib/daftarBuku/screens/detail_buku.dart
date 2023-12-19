@@ -7,6 +7,7 @@ import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/screens/pinjam_buku.dart';
 import 'package:wisdom_repository_mobile/reviewBuku/screens/lihat_review.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 
 class DetailBuku extends StatelessWidget {
   final Buku buku;
@@ -69,10 +70,11 @@ class DetailBuku extends StatelessWidget {
                                   buku.fields.penulis,
                                   style: const TextStyle(color: Colors.white),
                                 ),
-                                Text(
-                                  '${buku.fields.rating.toString()}/5',
-                                  style: const TextStyle(color: Colors.white),
-                                ),
+                                if(member == 'premium')
+                                  Text(
+                                    '${buku.fields.rating.toString()}/5',
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                 Text(
                                   buku.fields.tahun.toString(),
                                   style: const TextStyle(color: Colors.white),
@@ -95,37 +97,38 @@ class DetailBuku extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Details",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          ElevatedButton(
-                                onPressed: () {
-                                  // lihat review
-                                  Navigator.of(context)
-                                      .pushReplacement(MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        ReviewBuku(buku: buku),
-                                  ));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0),
+                      if(member != "")
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              "Details",
+                              style: TextStyle(fontSize: 20),
+                            ),
+                            ElevatedButton(
+                                  onPressed: () {
+                                    // lihat review
+                                    Navigator.of(context)
+                                        .pushReplacement(MaterialPageRoute(
+                                      builder: (BuildContext context) =>
+                                          ReviewBuku(buku: buku),
+                                    ));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                    backgroundColor: Colors.white,
                                   ),
-                                  backgroundColor: Colors.white,
-                                ),
-                                child: const Text(
-                                  'Lihat Review',
-                                  style: TextStyle(
-                                    color: Color(0xFF37465D),
+                                  child: const Text(
+                                    'Lihat Review',
+                                    style: TextStyle(
+                                      color: Color(0xFF37465D),
+                                    ),
                                   ),
                                 ),
-                              ),
-                        ],
-                      ),
+                          ],
+                        ),
                       const SizedBox(height: 16),
                       Container(
                         width: double.infinity, // Set the width to full
@@ -139,8 +142,7 @@ class DetailBuku extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              buku.fields.deskripsi,
-                            ),
+                              member == "" ? "Anda perlu login" : buku.fields.deskripsi,                            ),
                           ),
                         ),
                       ),
@@ -165,80 +167,81 @@ class DetailBuku extends StatelessWidget {
                               ),
                             ),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () async {
-                                  // bookmark
-                                  int bookId = buku.pk;
-                                  final response = await request.post(
-                                      'https://wisdomrepository--wahyuridho5.repl.co/add-bookmark-ajax/',
+                          if (member != "")
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                ElevatedButton(
+                                  onPressed: () async {
+                                    // bookmark
+                                    int bookId = buku.pk;
+                                    final response = await request.post(
+                                        'https://wisdomrepository--wahyuridho5.repl.co/add-bookmark-ajax/',
 
-                                      //TESTING
-                                      // 'http://127.0.0.1:8000/add-bookmark-ajax/',
-                                      jsonEncode(
-                                          <String, int>{'id_buku': bookId}));
-                                  String message = response['message'];
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title: const Text('Bookmark'),
-                                        content: Text('$message !'),
-                                        actions: <Widget>[
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text('OK'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0),
-                                  ),
-                                  backgroundColor: const Color(0xFF4CB9E7),
-                                ),
-                                child: const Text(
-                                  'Bookmark',
-                                  style: TextStyle(
-                                    color: Color(0xFF3B375D),
-                                  ),
-                                ), // Add your button text here
-                              ),
-                              const SizedBox(width: 2),
-                              ElevatedButton(
-                                onPressed: () {
-                                  // pinjam
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => DetailPinjamBuku(
-                                        idBuku: buku.pk,
-                                      ),
+                                        //TESTING
+                                        // 'http://127.0.0.1:8000/add-bookmark-ajax/',
+                                        jsonEncode(
+                                            <String, int>{'id_buku': bookId}));
+                                    String message = response['message'];
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          title: const Text('Bookmark'),
+                                          content: Text('$message !'),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                              },
+                                              child: const Text('OK'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
                                     ),
-                                  );
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(0),
+                                    backgroundColor: const Color(0xFF4CB9E7),
                                   ),
-                                  backgroundColor: const Color(0xFF4DC7BF),
+                                  child: const Text(
+                                    'Bookmark',
+                                    style: TextStyle(
+                                      color: Color(0xFF3B375D),
+                                    ),
+                                  ), // Add your button text here
                                 ),
-                                child: const Text(
-                                  'Pinjam',
-                                  style: TextStyle(
-                                    color: Color(0xFF37465D),
+                                const SizedBox(width: 2),
+                                ElevatedButton(
+                                  onPressed: () {
+                                    // pinjam
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DetailPinjamBuku(
+                                          idBuku: buku.pk,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(0),
+                                    ),
+                                    backgroundColor: const Color(0xFF4DC7BF),
+                                  ),
+                                  child: const Text(
+                                    'Pinjam',
+                                    style: TextStyle(
+                                      color: Color(0xFF37465D),
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
-                          )
+                              ],
+                            )
                         ],
                       )
                     ],

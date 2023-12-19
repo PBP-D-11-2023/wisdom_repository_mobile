@@ -3,7 +3,7 @@ import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pinjam.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pengembalian.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
-import 'package:wisdom_repository_mobile/adminBuku/screens/logout.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/screens/logout.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
