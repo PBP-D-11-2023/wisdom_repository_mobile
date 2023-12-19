@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/login.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 
 class LogoutPage extends StatelessWidget {
   const LogoutPage({super.key});
@@ -33,6 +34,7 @@ class LogoutPage extends StatelessWidget {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("$message Sampai jumpa, $uname."),
                       ));
+                      member = "";
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

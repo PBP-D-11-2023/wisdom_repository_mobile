@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
-import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/rating.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/detail_buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/request_form.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/widgets/bottom_navbar.dart';
@@ -429,7 +429,7 @@ class _BukuPageState extends State<BukuPage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton.extended(
+      floatingActionButton: member != "" ? FloatingActionButton.extended(
         onPressed: () {
           Navigator.push(
             context,
@@ -442,7 +442,7 @@ class _BukuPageState extends State<BukuPage> {
           'Request',
           style: TextStyle(color: Color(0xFF37465D)),
         ),
-      ),
+      ) : null,
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
