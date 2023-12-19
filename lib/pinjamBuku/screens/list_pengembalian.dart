@@ -37,143 +37,151 @@ class _PengembalianPageState extends State<PengembalianPage> {
         automaticallyImplyLeading: false,
         title: const Text('Daftar Pengembalian'),
       ),
-      body: FutureBuilder(
-          future: fetchPengembalian(request),
-          builder: (context, AsyncSnapshot snapshot) {
-            if (snapshot.data == null) {
-              return const Center(child: CircularProgressIndicator());
-            } else {
-              if (!snapshot.hasData) {
-                return const Column(
-                  children: [
-                    Text(
-                      "Tidak ada buku yang dikembalikan yang belum direview saat ini.",
-                      style: TextStyle(color: Color(0xff59A5D8), fontSize: 20),
-                    ),
-                    SizedBox(height: 8),
-                  ],
-                );
-              } else {
-                return ListView(
-                  children: [
-                    Stack(
-                      children: [
-                        Image.asset(
-                          'assets/images/background_bookmark.png',
-                          height: 250,
-                          width: double.infinity,
-                          fit: BoxFit.cover,
-                        ),
-                        const Positioned.fill(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Padding(
-                              padding: EdgeInsets.all(8.0),
-                              child: Text(
-                                'Returned Books',
-                                style: TextStyle(
-                                  fontSize: 48,
-                                  color: Color(0xFF37465D),
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                    const Padding(
-                      padding:
-                          EdgeInsets.all(10.0), // Adjust the values as needed
-                      child: Text(
-                        'List of books:',
-                        style: TextStyle(fontSize: 16),
+      body: ListView(
+        children: [
+          Stack(
+            children: [
+              Image.asset(
+                'assets/images/background_bookmark.png',
+                height: 250,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+              const Positioned.fill(
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Returned Books',
+                      style: TextStyle(
+                        fontSize: 48,
+                        color: Color(0xFF37465D),
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: snapshot.data!.length,
-                      itemBuilder: (_, index) => Container(
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 4),
-                        padding: const EdgeInsets.all(10.0),
-                        child: Card(
-                          color: Colors.white,
-                          elevation: 2,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                flex: 3,
-                                child: Hero(
-                                  tag: snapshot.data![index].idBuku,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(15.0),
-                                    child: SizedBox(
-                                      height: 150,
-                                      width: 150,
-                                      child: Image.network(
-                                        snapshot.data![index].bukuGambar,
+                  ),
+                ),
+              )
+            ],
+          ),
+          FutureBuilder(
+              future: fetchPengembalian(request),
+              builder: (context, AsyncSnapshot snapshot) {
+                if (snapshot.data == null) {
+                  return const Center(child: CircularProgressIndicator());
+                } else {
+                  if (!snapshot.hasData || snapshot.data.isEmpty) {
+                    return const Column(
+                      children: [
+                        Text(
+                          "Tidak ada buku yang dikembalikan yang belum direview saat ini.",
+                          style:
+                              TextStyle(color: Color(0xff59A5D8), fontSize: 20),
+                        ),
+                        SizedBox(height: 8),
+                      ],
+                    );
+                  } else {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.all(
+                              10.0), // Adjust the values as needed
+                          child: Text(
+                            'List of books:',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: snapshot.data!.length,
+                          itemBuilder: (_, index) => Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 4),
+                            padding: const EdgeInsets.all(10.0),
+                            child: Card(
+                              color: Colors.white,
+                              elevation: 2,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    flex: 3,
+                                    child: Hero(
+                                      tag: snapshot.data![index].idBuku,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(15.0),
+                                        child: SizedBox(
+                                          height: 150,
+                                          width: 150,
+                                          child: Image.network(
+                                            snapshot.data![index].bukuGambar,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
-                              ),
-                              Expanded(
-                                flex: 6,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        snapshot.data![index].bukuJudul,
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                        ),
-                                      ),
-                                      const SizedBox(height: 8),
-                                      ElevatedButton(
-                                        onPressed: () async {
-                                          int idbuku =
-                                              snapshot.data![index].idBuku;
-                                          var response = await request.get(
-                                              'https://wisdomrepository--wahyuridho5.repl.co/review/get-book-json/$idbuku/');
-                                          Buku bukuKembali =
-                                              Buku.fromJson(response[0]);
-                                          showReviewSheet(context, bukuKembali,
-                                              snapshot.data![index].pk);
-                                        },
-                                        style: ElevatedButton.styleFrom(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(20.0),
+                                  Expanded(
+                                    flex: 6,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            snapshot.data![index].bukuJudul,
+                                            style: const TextStyle(
+                                              fontSize: 20,
+                                            ),
                                           ),
-                                          backgroundColor:
-                                              const Color(0xFF37465D),
-                                        ),
-                                        child: const Text(
-                                          'Review',
-                                          style: TextStyle(
-                                            color: Colors.white,
+                                          const SizedBox(height: 8),
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              int idbuku =
+                                                  snapshot.data![index].idBuku;
+                                              var response = await request.get(
+                                                  'https://wisdomrepository--wahyuridho5.repl.co/review/get-book-json/$idbuku/');
+                                              Buku bukuKembali =
+                                                  Buku.fromJson(response[0]);
+                                              showReviewSheet(
+                                                  context,
+                                                  bukuKembali,
+                                                  snapshot.data![index].pk);
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(20.0),
+                                              ),
+                                              backgroundColor:
+                                                  const Color(0xFF37465D),
+                                            ),
+                                            child: const Text(
+                                              'Review',
+                                              style: TextStyle(
+                                                color: Colors.white,
+                                              ),
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   ),
-                                ),
+                                ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                  ],
-                );
-              }
-            }
-          }),
+                      ],
+                    );
+                  }
+                }
+              }),
+        ],
+      ),
       bottomNavigationBar: const CustomBottomNavigationBar(),
     );
   }
