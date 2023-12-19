@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pinjam.dart';
 import 'package:wisdom_repository_mobile/pinjamBuku/screens/list_pengembalian.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
 import 'package:wisdom_repository_mobile/auth_bookmark/screens/list_bookmark.dart';
-import 'package:wisdom_repository_mobile/adminBuku/screens/logout.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/screens/logout.dart';
 
 class CustomBottomNavigationBar extends StatelessWidget {
   const CustomBottomNavigationBar({super.key});
@@ -22,24 +23,27 @@ class CustomBottomNavigationBar extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const BukuPage()),
               );
             }),
-            _buildButton(const IconData(0xeee2, fontFamily: 'MaterialIcons'), () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const BookmarkPage()),
-              );
-            }),
-            _buildButton(Icons.library_books, () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const PeminjamanPage()),
-              );
-            }),
-            _buildButton(Icons.assignment_turned_in, () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const PengembalianPage()),
-              );
-            }),
+            if (member!="")
+              _buildButton(const IconData(0xeee2, fontFamily: 'MaterialIcons'), () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const BookmarkPage()),
+                );
+              }),
+            if (member!="")
+              _buildButton(Icons.library_books, () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PeminjamanPage()),
+                );
+              }),
+            if (member!="")
+              _buildButton(Icons.assignment_turned_in, () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const PengembalianPage()),
+                );
+              }),
             _buildButton(Icons.person, () {
               Navigator.pushReplacement(
                 context,

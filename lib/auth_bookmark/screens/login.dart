@@ -158,6 +158,23 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
+              const SizedBox(height: 8.0),
+              TextButton(
+                onPressed: () async {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const BukuPage()),
+                  );
+                },
+                child: const Text(
+                  "Login as Guest",
+                  style: TextStyle(
+                    color: Color(0xFF37465D),
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

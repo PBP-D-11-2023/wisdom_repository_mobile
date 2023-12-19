@@ -31,10 +31,12 @@ class LogoutPage extends StatelessWidget {
                     String message = response["message"];
                     if (response['status']) {
                       String uname = response["username"];
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("$message Sampai jumpa, $uname."),
-                      ));
-                      member = "";
+                      if(uname != "") {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("$message Sampai jumpa, $uname."),
+                        ));
+                        member = "";
+                      }
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -50,13 +52,13 @@ class LogoutPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(0),
                     ),
-                    backgroundColor: const Color(0xFFFC726F),
+                    backgroundColor: member!= "" ? const Color(0xFFFC726F) : const Color(0xFF4DC7BF),
                     minimumSize:
                         const Size(150, 50), // Set the desired size here
                   ),
-                  child: const Text(
-                    'Logout',
-                    style: TextStyle(
+                  child: Text(
+                    member!= "" ? 'Logout' : 'Login',
+                    style: const TextStyle(
                       color: Color(0xFF37465D),
                       fontSize: 24,
                     ),
