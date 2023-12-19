@@ -70,11 +70,10 @@ class DetailBuku extends StatelessWidget {
                                   buku.fields.penulis,
                                   style: const TextStyle(color: Colors.white),
                                 ),
-                                if(member == 'premium')
-                                  Text(
-                                    '${buku.fields.rating.toString()}/5',
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
+                                Text(
+                                  '${buku.fields.rating.toString()}/5',
+                                  style: const TextStyle(color: Colors.white),
+                                ),
                                 Text(
                                   buku.fields.tahun.toString(),
                                   style: const TextStyle(color: Colors.white),
@@ -97,7 +96,7 @@ class DetailBuku extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if(member != "")
+                      if (member != "")
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -106,27 +105,27 @@ class DetailBuku extends StatelessWidget {
                               style: TextStyle(fontSize: 20),
                             ),
                             ElevatedButton(
-                                  onPressed: () {
-                                    // lihat review
-                                    Navigator.of(context)
-                                        .pushReplacement(MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                          ReviewBuku(buku: buku),
-                                    ));
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(0),
-                                    ),
-                                    backgroundColor: Colors.white,
-                                  ),
-                                  child: const Text(
-                                    'Lihat Review',
-                                    style: TextStyle(
-                                      color: Color(0xFF37465D),
-                                    ),
-                                  ),
+                              onPressed: () {
+                                // lihat review
+                                Navigator.of(context)
+                                    .pushReplacement(MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      ReviewBuku(buku: buku),
+                                ));
+                              },
+                              style: ElevatedButton.styleFrom(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
                                 ),
+                                backgroundColor: Colors.white,
+                              ),
+                              child: const Text(
+                                'Lihat Review',
+                                style: TextStyle(
+                                  color: Color(0xFF37465D),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       const SizedBox(height: 16),
@@ -142,7 +141,10 @@ class DetailBuku extends StatelessWidget {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              member == "" ? "Anda perlu login" : buku.fields.deskripsi,                            ),
+                              member == ""
+                                  ? "Anda perlu login"
+                                  : buku.fields.deskripsi,
+                            ),
                           ),
                         ),
                       ),

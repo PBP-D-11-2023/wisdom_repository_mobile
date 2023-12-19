@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:pbp_django_auth/pbp_django_auth.dart';
+import 'package:wisdom_repository_mobile/auth_bookmark/screens/register.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/buku.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/models/rating.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/detail_buku.dart';
@@ -328,15 +329,16 @@ class _BukuPageState extends State<BukuPage> {
                                   child: Card(
                                     color: Colors.white,
                                     elevation: 2,
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                            flex: 1,
-                                            child: Hero(
-                                              tag: _filteredBuku[index].pk,
-                                              child: Padding(
-                                                padding:
-                                                    const EdgeInsets.all(12.0),
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                              flex: 1,
+                                              child: Hero(
+                                                tag: _filteredBuku[index].pk,
                                                 child: SizedBox(
                                                   height: 100,
                                                   child: Image.network(
@@ -344,16 +346,59 @@ class _BukuPageState extends State<BukuPage> {
                                                           .fields
                                                           .gambar),
                                                 ),
-                                              ),
-                                            )),
-                                        Expanded(
-                                            flex: 2,
-                                            child: Text(
-                                              _filteredBuku[index].fields.judul,
-                                              style:
-                                                  const TextStyle(fontSize: 20),
-                                            ))
-                                      ],
+                                              )),
+                                          Expanded(
+                                              flex: 2,
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    _filteredBuku[index]
+                                                        .fields
+                                                        .judul,
+                                                    style: const TextStyle(
+                                                        fontSize: 20),
+                                                  ),
+                                                  const SizedBox(height: 8),
+                                                  if (member == 'premium')
+                                                    Container(
+                                                      width: 60,
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                              4),
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.yellow,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8),
+                                                      ),
+                                                      child: Row(
+                                                        children: [
+                                                          const Icon(
+                                                            Icons.star,
+                                                            color: Colors.black,
+                                                            size: 16,
+                                                          ),
+                                                          const SizedBox(
+                                                              width: 4),
+                                                          Text(
+                                                            _filteredBuku[index]
+                                                                .fields
+                                                                .rating
+                                                                .toString(),
+                                                            style:
+                                                                const TextStyle(
+                                                                    fontSize:
+                                                                        12),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                ],
+                                              ))
+                                        ],
+                                      ),
                                     ),
                                   ),
                                   onTap: () {
