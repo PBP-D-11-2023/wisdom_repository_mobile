@@ -1,7 +1,7 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pbp_django_auth/pbp_django_auth.dart';
 import 'package:wisdom_repository_mobile/daftarBuku/screens/list_buku.dart';
@@ -29,6 +29,7 @@ class _BukuFormPageState extends State<RequestFormPage> {
 
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         title: const Text('Form Request Buku'),
       ),
       body: Form(
@@ -238,54 +239,75 @@ class _BukuFormPageState extends State<RequestFormPage> {
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                 ),
               ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(const Color(0xFF37465D)),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        backgroundColor: const Color(0xFF37465D),
+                      ),
+                      child: const Text(
+                        'Back',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        // Kirim ke Django dan tunggu respons
-                        final response = await request.postJson(
-                            "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/create-request-flutter/",
-                            jsonEncode(<String, String>{
-                              'isbn': _isbn,
-                              'judul': _judul,
-                              'penulis': _penulis,
-                              'tahun': _tahun.toString(),
-                              'kategori': _kategori,
-                              'gambar': _gambar,
-                              'deskripsi': _deskripsi,
-                              'rating': _rating.toString(),
-                            }));
-                        if (response['status'] == 'success') {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("Request buku berhasil disimpan!"),
-                          ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const BukuPage()),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content:
-                                Text("Terdapat kesalahan, silakan coba lagi."),
-                          ));
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        backgroundColor: const Color(0xFF4DC7BF),
+                      ),
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          // Kirim ke Django dan tunggu respons
+                          final response = await request.postJson(
+                              "https://wisdomrepository--wahyuridho5.repl.co/admin-buku/create-request-flutter/",
+                              jsonEncode(<String, String>{
+                                'isbn': _isbn,
+                                'judul': _judul,
+                                'penulis': _penulis,
+                                'tahun': _tahun.toString(),
+                                'kategori': _kategori,
+                                'gambar': _gambar,
+                                'deskripsi': _deskripsi,
+                                'rating': _rating.toString(),
+                              }));
+                          if (response['status'] == 'success') {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text("Request buku berhasil disimpan!"),
+                            ));
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const BukuPage()),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content:
+                                  Text("Terdapat kesalahan, silakan coba lagi."),
+                            ));
+                          }
                         }
-                      }
-                    },
-                    child: const Text(
-                      "Save",
-                      style: TextStyle(color: Colors.white),
+                      },
+                      child: const Text(
+                        "Save",
+                        style: TextStyle(color: Color(0xFF37465D)),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ],
