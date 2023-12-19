@@ -1,4 +1,5 @@
 # Wisdom-Repository-Mobile
+[![Build status](https://build.appcenter.ms/v0.1/apps/23bb50db-467c-47b7-9235-032d6088cd0e/branches/main/badge)](https://appcenter.ms)
 
 ## Anggota Kelompok
 
