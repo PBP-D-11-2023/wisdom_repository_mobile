@@ -99,93 +99,128 @@ class _RegistrationPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        automaticallyImplyLeading: false,
-        title: const Text('Registration Form'),
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                'assets/images/logo_blue.png',
-                height: 150,
-                width: 150,
-              ),
-              const SizedBox(height: 8.0),
-              TextField(
-                controller: _usernameController,
-                decoration: const InputDecoration(
-                  labelText: 'Username',
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              TextField(
-                controller: _passwordController,
-                decoration: const InputDecoration(
-                  labelText: 'Password',
-                ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 8.0),
-              RadioListTile<String>(
-                title: const Text('Regular'),
-                value: 'regular',
-                groupValue: selectedMember,
-                onChanged: (value) {
-                  setState(() {
-                    selectedMember = value;
-                  });
-                },
-              ),
-              RadioListTile<String>(
-                title: const Text('Premium'),
-                value: 'premium',
-                groupValue: selectedMember,
-                onChanged: (value) {
-                  setState(() {
-                    selectedMember = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 8.0),
-              TextButton(
-                onPressed: () async {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()),
-                  );
-                },
-                child: const Text(
-                  "Already have an account? Login Now",
-                  style: TextStyle(
-                    color: Color(0xFF37465D),
-                    fontWeight: FontWeight.bold,
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'assets/images/logo_blue.png',
+                    height: 200,
+                    width: 200,
+                    fit: BoxFit.fill,
                   ),
-                ),
-              ),
-              const SizedBox(height: 8.0),
-              ElevatedButton(
-                onPressed: () async {
-                  await _registerUser();
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF37465D),
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 24.0),
-                  minimumSize: const Size(200, 60.0),
-                ),
-                child: const Text(
-                  'Register',
-                  style: TextStyle(
-                    fontSize: 18,
-                    color: Colors.white,
+                  const SizedBox(height: 20.0),
+                  TextField(
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      labelText: 'Username',
+                      filled: true,
+                      fillColor: Colors.white,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF37465D).withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: const Icon(Icons.person),
+                        ),
+                      ),
+                    ),
                   ),
-                ),
+                  const SizedBox(height: 8.0),
+                  TextField(
+                    controller: _passwordController,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      filled: true,
+                      fillColor: Colors.white,
+                      floatingLabelBehavior: FloatingLabelBehavior.never,
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      ),
+                      prefixIcon: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Container(
+                          padding: const EdgeInsets.all(8.0),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFF37465D).withOpacity(0.12),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: const Icon(Icons.lock),
+                        ),
+                      ),
+                    ),
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 8.0),
+                  RadioListTile<String>(
+                    title: const Text('Regular'),
+                    value: 'regular',
+                    groupValue: selectedMember,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedMember = value;
+                      });
+                    },
+                  ),
+                  RadioListTile<String>(
+                    title: const Text('Premium'),
+                    value: 'premium',
+                    groupValue: selectedMember,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedMember = value;
+                      });
+                    },
+                  ),
+                  const SizedBox(height: 8.0),
+                  TextButton(
+                    onPressed: () async {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                      );
+                    },
+                    child: const Text(
+                      "Already have an account? Login Now",
+                      style: TextStyle(
+                        color: Color(0xFF37465D),
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8.0),
+                  ElevatedButton(
+                    onPressed: () async {
+                      await _registerUser();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFF37465D),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 16.0, horizontal: 24.0),
+                      minimumSize: const Size(200, 60.0),
+                    ),
+                    child: const Text(
+                      'Register',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),
