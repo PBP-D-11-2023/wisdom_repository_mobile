@@ -3,7 +3,7 @@ import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/buku_form.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/list_buku.dart';
 import 'package:wisdom_repository_mobile/adminBuku/screens/list_request.dart';
-import 'package:wisdom_repository_mobile/adminBuku/screens/logout.dart';
+import 'package:wisdom_repository_mobile/daftarBuku/screens/logout.dart';
 
 class AdminPage extends StatefulWidget {
   const AdminPage({Key? key}) : super(key: key);
