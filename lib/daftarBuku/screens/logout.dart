@@ -37,10 +37,10 @@ class LogoutPage extends StatelessWidget {
                         ));
                         member = "";
                       }
-                      Navigator.pushReplacement(
+                      Navigator.pushAndRemoveUntil(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoginPage()),
+                        MaterialPageRoute(builder: (context) => const LoginPage()),
+                        (route) => false,
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
